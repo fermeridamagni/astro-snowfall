@@ -10,5 +10,9 @@
   },
   "dependencies": {
     "astro": "^5.16.6"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.11",
+    "ultracite": "7.0.6"
   }
 }
