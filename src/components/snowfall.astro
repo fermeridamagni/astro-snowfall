@@ -1,0 +1,172 @@
+---
+interface Props {
+  snowflakeCount?: number;
+}
+
+const { snowflakeCount = 50 } = Astro.props;
+---
+
+<div class="snowfall">
+  {Array.from({ length: snowflakeCount }).map(() => (
+    <div class="snowflake">❄</div>
+  ))}
+</div>
+
+<style>
+  .snowfall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .snowflake {
+    position: absolute;
+    top: -10px;
+    color: white;
+    font-size: 1em;
+    user-select: none;
+    animation: fall linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(100vh);
+    }
+  }
+
+  .snowflake:nth-child(1n) {
+    left: 1%;
+    animation-duration: 8s;
+    animation-delay: 0s;
+    font-size: 0.8em;
+  }
+
+  .snowflake:nth-child(2n) {
+    left: 10%;
+    animation-duration: 12s;
+    animation-delay: 1s;
+    font-size: 1.2em;
+  }
+
+  .snowflake:nth-child(3n) {
+    left: 20%;
+    animation-duration: 9s;
+    animation-delay: 2s;
+    font-size: 0.9em;
+  }
+
+  .snowflake:nth-child(4n) {
+    left: 30%;
+    animation-duration: 14s;
+    animation-delay: 3s;
+    font-size: 1.1em;
+  }
+
+  .snowflake:nth-child(5n) {
+    left: 40%;
+    animation-duration: 10s;
+    animation-delay: 1.5s;
+    font-size: 1em;
+  }
+
+  .snowflake:nth-child(6n) {
+    left: 50%;
+    animation-duration: 11s;
+    animation-delay: 0.5s;
+    font-size: 0.85em;
+  }
+
+  .snowflake:nth-child(7n) {
+    left: 60%;
+    animation-duration: 13s;
+    animation-delay: 2.5s;
+    font-size: 1.15em;
+  }
+
+  .snowflake:nth-child(8n) {
+    left: 70%;
+    animation-duration: 9.5s;
+    animation-delay: 1.8s;
+    font-size: 0.95em;
+  }
+
+  .snowflake:nth-child(9n) {
+    left: 80%;
+    animation-duration: 12.5s;
+    animation-delay: 0.8s;
+    font-size: 1.05em;
+  }
+
+  .snowflake:nth-child(10n) {
+    left: 90%;
+    animation-duration: 10.5s;
+    animation-delay: 2.2s;
+    font-size: 0.9em;
+  }
+
+  .snowflake:nth-child(11n) {
+    left: 5%;
+    animation-duration: 11.5s;
+    animation-delay: 1.2s;
+  }
+
+  .snowflake:nth-child(13n) {
+    left: 15%;
+    animation-duration: 13.5s;
+    animation-delay: 3.5s;
+  }
+
+  .snowflake:nth-child(17n) {
+    left: 25%;
+    animation-duration: 8.5s;
+    animation-delay: 0.3s;
+  }
+
+  .snowflake:nth-child(19n) {
+    left: 35%;
+    animation-duration: 14.5s;
+    animation-delay: 2.8s;
+  }
+
+  .snowflake:nth-child(23n) {
+    left: 45%;
+    animation-duration: 9.8s;
+    animation-delay: 1.1s;
+  }
+
+  .snowflake:nth-child(29n) {
+    left: 55%;
+    animation-duration: 12.8s;
+    animation-delay: 0.6s;
+  }
+
+  .snowflake:nth-child(31n) {
+    left: 65%;
+    animation-duration: 10.8s;
+    animation-delay: 3.2s;
+  }
+
+  .snowflake:nth-child(37n) {
+    left: 75%;
+    animation-duration: 11.2s;
+    animation-delay: 1.6s;
+  }
+
+  .snowflake:nth-child(41n) {
+    left: 85%;
+    animation-duration: 13.2s;
+    animation-delay: 2.1s;
+  }
+
+  .snowflake:nth-child(43n) {
+    left: 95%;
+    animation-duration: 9.2s;
+    animation-delay: 0.9s;
+  }
+</style>
