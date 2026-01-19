@@ -1,5 +1,9 @@
 # build output
 dist/
+
+# shadcn ui
+/public/r
+
 # generated types
 .astro/
 
