@@ -1,0 +1,75 @@
+---
+import Badge from "@ui/Badge.astro";
+import CodeBlock from "@ui/CodeBlock.astro";
+---
+
+<section id="usage" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Usage</h2>
+
+    <div class="space-y-24">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <Badge variant="success" class="mb-4">Quick Start</Badge>
+          <h3 class="text-2xl font-bold mb-4 text-white">
+            Basic Implementation
+          </h3>
+          <p class="text-gray-400 mb-6 leading-relaxed">
+            Import the component and drop it on your page. By default, it will
+            cover the container it is placed in.
+          </p>
+          <ul class="space-y-2 text-gray-400 mb-8">
+            <li class="flex items-center gap-2">
+              <div class="w-1.5 h-1.5 rounded-full bg-purple-500"></div> Default configuration
+              looks great out of the box
+            </li>
+            <li class="flex items-center gap-2">
+              <div class="w-1.5 h-1.5 rounded-full bg-purple-500"></div> Auto-resizes
+              with container
+            </li>
+          </ul>
+        </div>
+        <div class="w-full">
+          <CodeBlock
+            lang="astro"
+            title="src/pages/index.astro"
+            code={`---
+import Snowfall from '../components/Snowfall.astro';
+---
+
+<div class="relative min-h-[500px]">
+  <Snowfall /> 
+  <div class="relative z-10">
+    <h1>Winter is coming</h1>
+  </div>
+</div>`}
+          />
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="lg:order-2">
+          <Badge variant="warning" class="mb-4">Popular</Badge>
+          <h3 class="text-2xl font-bold mb-4 text-white">
+            Full Screen Background
+          </h3>
+          <p class="text-gray-400 mb-6 leading-relaxed">
+            To create a fixed background that stays in place while you scroll,
+            use standard CSS positioning.
+          </p>
+        </div>
+        <div class="w-full lg:order-1">
+          <CodeBlock
+            lang="astro"
+            title="FullScreen.astro"
+            code={`<Snowfall 
+  class="fixed inset-0 z-0 pointer-events-none"
+  color="#fff"
+  snowflakeCount={200}
+/>`}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

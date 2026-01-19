@@ -1,0 +1,65 @@
+---
+import Card from "../ui/Card.astro";
+
+const features = [
+  {
+    icon: "⚡",
+    title: "Optimized Performance",
+    description:
+      "Uses requestAnimationFrame and batch rendering for 60fps performance on any device.",
+  },
+  {
+    icon: "🎨",
+    title: "Highly Configurable",
+    description:
+      "Control snowflake color, size, speed, density, wind, and more with simple props.",
+  },
+  {
+    icon: "📱",
+    title: "Fully Responsive",
+    description:
+      "Canvas automatically resizes and handles window resizing efficiently.",
+  },
+  {
+    icon: "🌀",
+    title: "3D Rotation",
+    description:
+      "Realistic tumbling motion with optional 3D transformation matrices.",
+  },
+  {
+    icon: "🛡️",
+    title: "Type Safe",
+    description: "Built with TypeScript for full autocomplete and type safety.",
+  },
+  {
+    icon: "🚀",
+    title: "Zero Runtime Overhead",
+    description: "Astro island architecture ensures minimal JS payload.",
+  },
+];
+---
+
+<section id="features" class="py-24 relative bg-white/2">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">Why Astro Snowfall?</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        Everything you need for a wintery web experience.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        features.map((feature) => (
+          <Card gradient>
+            <div class="text-4xl mb-4 p-3 bg-white/5 rounded-2xl w-fit border border-white/5">
+              {feature.icon}
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-white">{feature.title}</h3>
+            <p class="text-gray-400 leading-relaxed">{feature.description}</p>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</section>

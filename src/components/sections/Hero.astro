@@ -1,0 +1,82 @@
+---
+import Snowfall from "../../components/Snowfall.astro";
+import Badge from "../ui/Badge.astro";
+import Button from "../ui/Button.astro";
+---
+
+<section
+  class="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-20"
+>
+  <div class="absolute inset-0 z-0">
+    <Snowfall
+      snowflakeCount={200}
+      speed={[0.5, 2.5]}
+      wind={[-0.5, 1.5]}
+      radius={[0.5, 3.5]}
+      enable3DRotation={true}
+    />
+  </div>
+
+  <div
+    class="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 flex flex-col items-center text-center"
+  >
+    <div class="mb-6 animate-[float_6s_ease-in-out_infinite]">
+      <Badge variant="outline" class="backdrop-blur-md">
+        <span class="mr-2">🎉</span> New: 3D Rotation Support
+      </Badge>
+    </div>
+
+    <h1
+      class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 drop-shadow-2xl"
+    >
+      Astro <span class="text-gradient">Snowfall</span>
+    </h1>
+
+    <p
+      class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light"
+    >
+      A lightweight, performant canvas-based snowfall background animation
+      component built with <span class="text-white font-medium">Astro</span> and <span
+        class="text-white font-medium">TypeScript</span
+      >.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+      <Button
+        href="#installation"
+        size="lg"
+        class="shadow-purple-500/25 shadow-lg"
+      >
+        Get Started
+      </Button>
+      <Button
+        href="https://github.com/fermeridamagni/astro-snowfall"
+        variant="secondary"
+        size="lg"
+        target="_blank"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mr-2"
+          ><path
+            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+          ></path></svg
+        >
+        GitHub
+      </Button>
+    </div>
+  </div>
+
+  <div
+    class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#030014] to-transparent pointer-events-none z-10"
+  >
+  </div>
+</section>

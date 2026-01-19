@@ -12,7 +12,7 @@
  * />
  */
 
-import type { SnowfallCanvasConfig } from "../lib/snowfall/types";
+import type { SnowfallCanvasConfig } from "@lib/snowfall/types";
 
 interface Props extends SnowfallCanvasConfig {
   /**
@@ -59,79 +59,84 @@ const config: SnowfallCanvasConfig = {
 const canvasId = `snowfall-canvas-${Math.random().toString(36).substring(2, 9)}`;
 ---
 
-<canvas id={canvasId} class={className} style={style}></canvas>
+<canvas
+  id={canvasId}
+  class:list={[className, "js-snowfall-canvas"]}
+  style={style}
+  data-config={JSON.stringify(config)}></canvas>
 
-<script define:vars={{ canvasId, config }}>
+<script>
   import { SnowfallCanvas } from "../lib/snowfall/SnowfallCanvas";
+  import type { SnowfallCanvasConfig } from "../lib/snowfall/types";
 
-  // Wait for DOM to be ready
+  // Store active instances to cleanup later
+  const instances = new Map<string, SnowfallCanvas>();
+
   const initSnowfall = () => {
-    const canvas = document.getElementById(canvasId);
+    const canvases = document.querySelectorAll(
+      ".js-snowfall-canvas",
+    ) as NodeListOf<HTMLCanvasElement>;
 
-    if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
-      console.error("Snowfall canvas element not found:", canvasId);
-      return;
-    }
+    canvases.forEach((canvas) => {
+      // Skip if already initialized
+      if (instances.has(canvas.id)) return;
 
-    console.log("Snowfall initializing...", {
-      canvasId,
-      config,
-      offsetWidth: canvas.offsetWidth,
-      offsetHeight: canvas.offsetHeight,
-    });
+      try {
+        const config = JSON.parse(
+          canvas.dataset.config || "{}",
+        ) as SnowfallCanvasConfig;
 
-    let snowfall = null;
+        console.log("Initializing snowfall for:", canvas.id);
 
-    // Set initial canvas size
-    const resizeCanvas = () => {
-      const width = canvas.offsetWidth || window.innerWidth;
-      const height = canvas.offsetHeight || window.innerHeight;
+        // Set initial size
+        const resizeCanvas = () => {
+          const width = canvas.offsetWidth || window.innerWidth;
+          const height = canvas.offsetHeight || window.innerHeight;
+          canvas.width = width;
+          canvas.height = height;
+          return { width, height };
+        };
 
-      console.log("Resizing canvas:", { width, height });
+        resizeCanvas();
 
-      canvas.width = width;
-      canvas.height = height;
+        const snowfall = new SnowfallCanvas(canvas, config);
+        instances.set(canvas.id, snowfall);
 
-      // Update snowfall canvas size if it exists
-      if (snowfall) {
-        snowfall.resize(width, height);
+        // Resize observer
+        const resizeObserver = new ResizeObserver(() => {
+          const { width, height } = resizeCanvas();
+          snowfall.resize(width, height);
+        });
+        resizeObserver.observe(canvas);
+
+        // Store observer for cleanup (attach to canvas element for simplicity in this context)
+        // @ts-ignore
+        canvas._resizeObserver = resizeObserver;
+      } catch (err) {
+        console.error("Failed to initialize snowfall:", err);
       }
-    };
-
-    // Initialize snowfall
-    resizeCanvas();
-    snowfall = new SnowfallCanvas(canvas, config);
-
-    console.log("Snowfall initialized successfully!");
-
-    // Set up responsive behavior with ResizeObserver
-    const resizeObserver = new ResizeObserver(() => {
-      resizeCanvas();
     });
-    resizeObserver.observe(canvas);
-
-    // Cleanup on page navigation (Astro View Transitions support)
-    const cleanup = () => {
-      if (snowfall) {
-        snowfall.destroy();
-      }
-      resizeObserver.disconnect();
-    };
-
-    document.addEventListener("astro:before-preparation", cleanup, {
-      once: true,
-    });
-
-    // Also cleanup on page unload (for non-Astro navigation)
-    window.addEventListener("beforeunload", cleanup, { once: true });
   };
 
-  // Initialize after DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSnowfall);
-  } else {
-    initSnowfall();
-  }
+  // Cleanup function
+  const cleanup = () => {
+    instances.forEach((instance, id) => {
+      instance.destroy();
+      const canvas = document.getElementById(id);
+      if (canvas) {
+        // @ts-ignore
+        canvas._resizeObserver?.disconnect();
+      }
+    });
+    instances.clear();
+  };
+
+  // Initialize on load
+  initSnowfall();
+
+  // Astro View Transitions support
+  document.addEventListener("astro:page-load", initSnowfall);
+  document.addEventListener("astro:before-preparation", cleanup);
 </script>
 
 <style>

@@ -1,0 +1,70 @@
+---
+import Card from "@ui/Card.astro";
+---
+
+<section id="docs" class="py-24 relative bg-white/[0.02]">
+  <div class="max-w-4xl mx-auto px-4 md:px-6">
+    <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Props API</h2>
+
+    <Card class="overflow-hidden p-0">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-white/5 border-b border-white/10 text-gray-300">
+              <th class="p-4 font-semibold">Prop</th>
+              <th class="p-4 font-semibold">Type</th>
+              <th class="p-4 font-semibold">Default</th>
+              <th class="p-4 font-semibold">Description</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/10 text-gray-400">
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 font-mono text-purple-400">color</td>
+              <td class="p-4 font-mono text-xs">string</td>
+              <td class="p-4 font-mono text-xs text-gray-500">'#dee4fd'</td>
+              <td class="p-4">Color of snowflakes. Can be any CSS color.</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 font-mono text-purple-400">snowflakeCount</td>
+              <td class="p-4 font-mono text-xs">number</td>
+              <td class="p-4 font-mono text-xs text-gray-500">150</td>
+              <td class="p-4">Number of snowflakes to render.</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 font-mono text-purple-400">radius</td>
+              <td class="p-4 font-mono text-xs">[number, number]</td>
+              <td class="p-4 font-mono text-xs text-gray-500">[0.5, 3.0]</td>
+              <td class="p-4">Min and max radius in pixels.</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 font-mono text-purple-400">speed</td>
+              <td class="p-4 font-mono text-xs">[number, number]</td>
+              <td class="p-4 font-mono text-xs text-gray-500">[1.0, 3.0]</td>
+              <td class="p-4">Min and max vertical falling speed.</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 font-mono text-purple-400">wind</td>
+              <td class="p-4 font-mono text-xs">[number, number]</td>
+              <td class="p-4 font-mono text-xs text-gray-500">[-0.5, 2.0]</td>
+              <td class="p-4">Min and max horizontal wind speed.</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 font-mono text-purple-400">enable3DRotation</td>
+              <td class="p-4 font-mono text-xs">boolean</td>
+              <td class="p-4 font-mono text-xs text-gray-500">false</td>
+              <td class="p-4">Enables 3D tumbling chips effect.</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 font-mono text-purple-400">rotationSpeed</td>
+              <td class="p-4 font-mono text-xs">[number, number]</td>
+              <td class="p-4 font-mono text-xs text-gray-500">[-1.0, 1.0]</td>
+              <td class="p-4"
+                >Rotation speed in degrees per frame (only with 3D).</td
+              >
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  </div>
+</section>

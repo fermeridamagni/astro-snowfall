@@ -1,0 +1,24 @@
+---
+interface Props {
+  class?: string;
+  gradient?: boolean;
+}
+
+const { class: className, gradient = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    "relative group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10 overflow-hidden",
+    className,
+  ]}
+>
+  {
+    gradient && (
+      <div class="absolute -inset-px bg-gradient-to-r from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+    )
+  }
+  <div class="relative z-10">
+    <slot />
+  </div>
+</div>
