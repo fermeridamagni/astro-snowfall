@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "astro-snowfall",
+  "homepage": "https://astro-snowfall.vercel.app",
+  "items": [
+    {
+      "name": "snowfall",
+      "type": "registry:component",
+      "title": "Snowfall",
+      "description": "A canvas-based snowfall background animation.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/components/Snowfall.astro",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/lib/snowfall/index.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/lib/snowfall/config.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/lib/snowfall/SnowfallCanvas.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/lib/snowfall/Snowflake.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/lib/snowfall/types.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/lib/snowfall/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    }
+  ]
+}
