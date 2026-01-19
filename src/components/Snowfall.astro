@@ -1,0 +1,143 @@
+---
+/**
+ * Snowfall Component - Canvas-based snowfall background animation
+ *
+ * @example
+ * <Snowfall
+ *   color="#fff"
+ *   snowflakeCount={200}
+ *   speed={[1, 3]}
+ *   wind={[-0.5, 2]}
+ *   enable3DRotation={true}
+ * />
+ */
+
+import type { SnowfallCanvasConfig } from "../lib/snowfall/types";
+
+interface Props extends SnowfallCanvasConfig {
+  /**
+   * CSS class name for the canvas element
+   */
+  class?: string;
+
+  /**
+   * CSS styles for the canvas element
+   */
+  style?: string;
+}
+
+const {
+  color,
+  radius,
+  speed,
+  wind,
+  changeFrequency,
+  rotationSpeed,
+  opacity,
+  enable3DRotation,
+  images,
+  snowflakeCount,
+  class: className,
+  style,
+} = Astro.props;
+
+// Build config object
+const config: SnowfallCanvasConfig = {
+  ...(color && { color }),
+  ...(radius && { radius }),
+  ...(speed && { speed }),
+  ...(wind && { wind }),
+  ...(changeFrequency && { changeFrequency }),
+  ...(rotationSpeed && { rotationSpeed }),
+  ...(opacity && { opacity }),
+  ...(enable3DRotation !== undefined && { enable3DRotation }),
+  ...(images && { images }),
+  ...(snowflakeCount && { snowflakeCount }),
+};
+
+// Generate unique ID for this instance
+const canvasId = `snowfall-canvas-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<canvas id={canvasId} class={className} style={style}></canvas>
+
+<script define:vars={{ canvasId, config }}>
+  import { SnowfallCanvas } from "../lib/snowfall/SnowfallCanvas";
+
+  // Wait for DOM to be ready
+  const initSnowfall = () => {
+    const canvas = document.getElementById(canvasId);
+
+    if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
+      console.error("Snowfall canvas element not found:", canvasId);
+      return;
+    }
+
+    console.log("Snowfall initializing...", {
+      canvasId,
+      config,
+      offsetWidth: canvas.offsetWidth,
+      offsetHeight: canvas.offsetHeight,
+    });
+
+    let snowfall = null;
+
+    // Set initial canvas size
+    const resizeCanvas = () => {
+      const width = canvas.offsetWidth || window.innerWidth;
+      const height = canvas.offsetHeight || window.innerHeight;
+
+      console.log("Resizing canvas:", { width, height });
+
+      canvas.width = width;
+      canvas.height = height;
+
+      // Update snowfall canvas size if it exists
+      if (snowfall) {
+        snowfall.resize(width, height);
+      }
+    };
+
+    // Initialize snowfall
+    resizeCanvas();
+    snowfall = new SnowfallCanvas(canvas, config);
+
+    console.log("Snowfall initialized successfully!");
+
+    // Set up responsive behavior with ResizeObserver
+    const resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+    });
+    resizeObserver.observe(canvas);
+
+    // Cleanup on page navigation (Astro View Transitions support)
+    const cleanup = () => {
+      if (snowfall) {
+        snowfall.destroy();
+      }
+      resizeObserver.disconnect();
+    };
+
+    document.addEventListener("astro:before-preparation", cleanup, {
+      once: true,
+    });
+
+    // Also cleanup on page unload (for non-Astro navigation)
+    window.addEventListener("beforeunload", cleanup, { once: true });
+  };
+
+  // Initialize after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSnowfall);
+  } else {
+    initSnowfall();
+  }
+</script>
+
+<style>
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

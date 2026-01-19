@@ -1,7 +1,39 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": [
-    "ultracite/biome/core",
-    "ultracite/biome/astro"
+  "extends": ["ultracite/biome/core", "ultracite/biome/astro"],
+  "overrides": [
+    {
+      /*
+       * This override is specifically to disable Biome in Astro files,
+       * as Biome's Astro support is currently limited and may conflict
+       * @see https://biomejs.dev/internals/language-support/#html-super-languages-support
+       */
+      "includes": ["**/*.astro"],
+      "html": {
+        "assist": {
+          "enabled": false
+        },
+        "experimentalFullSupportEnabled": true,
+        "formatter": {
+          "indentScriptAndStyle": true
+        }
+      },
+      "linter": {
+        "enabled": false,
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      },
+      "formatter": {
+        "enabled": false
+      }
+    }
   ]
 }
