@@ -11,7 +11,10 @@
       "@components/*": ["./src/components/*"],
       "@ui/*": ["./src/components/ui/*"],
       "@lib/*": ["./src/lib/*"],
-      "@styles/*": ["./src/styles/*"]
-    }
+      "@styles/*": ["./src/styles/*"],
+      "@hooks/*": ["./src/hooks/*"]
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }

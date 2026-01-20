@@ -5,90 +5,14 @@ import CodeBlock from "@ui/CodeBlock.astro";
 
 <section id="installation" class="py-24 relative bg-white/[0.02]">
   <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <div class="flex flex-col lg:flex-row gap-12 items-center">
-      <div class="lg:w-1/2">
+    <div class="flex flex-col lg:flex-row gap-12 items-center mb-16">
+      <div class="lg:w-1/2 w-full">
         <h2 class="text-3xl md:text-5xl font-bold mb-6">Installation</h2>
+
         <p class="text-gray-300 text-lg mb-8 leading-relaxed">
           Add the component to your project using the shadcn CLI or manually
           copy the source.
         </p>
-
-        <div class="space-y-8">
-          <div>
-            <div class="flex items-start gap-4 mb-4">
-              <div
-                class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 font-bold text-sm"
-              >
-                1
-              </div>
-              <div>
-                <h3
-                  class="text-white font-semibold flex items-center gap-2 mb-1"
-                >
-                  Using Shadcn CLI <span
-                    class="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                    >Recommended</span
-                  >
-                </h3>
-                <p class="text-sm text-gray-400 mb-3">
-                  Install automatically with all dependencies.
-                </p>
-                <CodeBlock
-                  title="Terminal"
-                  code="npx shadcn@latest add https://astro-snowfall.vercel.app/r/snowfall.json"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-              <div class="w-full border-t border-white/10"></div>
-            </div>
-            <div class="relative flex justify-center">
-              <span class="bg-[#0b0c15] px-2 text-sm text-gray-500">OR</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="flex items-start gap-4 mb-4">
-              <div
-                class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-gray-400 border border-white/10 font-bold text-sm"
-              >
-                2
-              </div>
-              <div>
-                <h3 class="text-white font-semibold mb-3">
-                  Manual Installation
-                </h3>
-                <div class="space-y-4">
-                  <div>
-                    <p
-                      class="text-xs text-gray-400 mb-1.5 uppercase tracking-wider"
-                    >
-                      Step A: Lib Files
-                    </p>
-                    <CodeBlock
-                      title="Terminal"
-                      code="cp -r src/lib/snowfall your-project/src/lib/"
-                    />
-                  </div>
-                  <div>
-                    <p
-                      class="text-xs text-gray-400 mb-1.5 uppercase tracking-wider"
-                    >
-                      Step B: Component
-                    </p>
-                    <CodeBlock
-                      title="Terminal"
-                      code="cp src/components/Snowfall.astro your-project/src/components/"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="lg:w-1/2 w-full">
@@ -136,6 +60,82 @@ import CodeBlock from "@ui/CodeBlock.astro";
             </div>
           </div>
         </Card>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-8">
+        <div>
+          <div class="flex items-start gap-4 mb-4">
+            <div
+              class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 font-bold text-sm"
+            >
+              1
+            </div>
+            <div class="w-full">
+              <h3 class="text-white font-semibold flex items-center gap-2 mb-1">
+                Using Shadcn CLI <span
+                  class="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                  >Recommended</span
+                >
+              </h3>
+              <p class="text-sm text-gray-400 mb-3">
+                Install automatically with all dependencies.
+              </p>
+              <CodeBlock
+                class="max-w-full"
+                title="Terminal"
+                code="npx shadcn@latest add https://astro-snowfall.vercel.app/r/snowfall.json"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div class="w-full border-t border-white/10"></div>
+          </div>
+          <div class="relative flex justify-center">
+            <span class="bg-[#0b0c15] px-2 text-sm text-gray-500">OR</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-start gap-4 mb-4">
+            <div
+              class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-gray-400 border border-white/10 font-bold text-sm"
+            >
+              2
+            </div>
+            <div class="w-full">
+              <h3 class="text-white font-semibold mb-3">Manual Installation</h3>
+              <div class="space-y-4">
+                <div>
+                  <p
+                    class="text-xs text-gray-400 mb-1.5 uppercase tracking-wider"
+                  >
+                    Step A: Lib Files
+                  </p>
+                  <CodeBlock
+                    title="Terminal"
+                    code="cp -r src/lib/snowfall your-project/src/lib/"
+                  />
+                </div>
+                <div>
+                  <p
+                    class="text-xs text-gray-400 mb-1.5 uppercase tracking-wider"
+                  >
+                    Step B: Component
+                  </p>
+                  <CodeBlock
+                    title="Terminal"
+                    code="cp src/components/Snowfall.astro your-project/src/components/"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

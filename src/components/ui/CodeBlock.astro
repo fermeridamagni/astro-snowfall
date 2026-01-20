@@ -1,11 +1,15 @@
 ---
+import { CopyButton } from "@components/animate-ui/components/buttons/copy";
+import { cn } from "@magnidev/tailwindcss-utils";
+
 interface Props {
   code: string;
   lang?: string;
   title?: string;
+  class?: string;
 }
 
-const { code, lang = "bash", title } = Astro.props;
+const { code, lang = "bash", title, class: className } = Astro.props;
 ---
 
 <div
@@ -23,27 +27,12 @@ const { code, lang = "bash", title } = Astro.props;
       </div>
     )
   }
-  <div class="relative group">
-    <button
-      class="absolute top-2 right-2 p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white/70 transition-colors z-20 backdrop-blur-sm"
-      onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').innerText); const originalContent = this.innerHTML; this.innerHTML = '<span class=\'text-xs text-green-400\'>Copied!</span>'; setTimeout(() => this.innerHTML = originalContent, 2000);"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-4 h-4"
-        ><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path
-          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-        ></path></svg
-      >
-    </button>
+  <div class={cn("relative group", className)}>
+    <CopyButton
+      client:visible
+      content={code}
+      className="absolute top-2 right-2 p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white/70 transition-colors z-20 backdrop-blur-sm"
+    />
     <div class="p-4 overflow-x-auto">
       <pre
         class="font-mono text-sm text-gray-300 leading-relaxed pr-12"><code class={`language-${lang}`}>{code.trim()}</code></pre>
