@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        uses: withastro/action@v5
         with:
           path: .
           node-version: 20
@@ -33,7 +33,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    steps:
+    steps: 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
