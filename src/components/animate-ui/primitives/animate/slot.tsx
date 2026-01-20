@@ -7,7 +7,8 @@ import React from "react";
 type AnyProps = Record<string, unknown>;
 
 type DOMMotionProps<T extends HTMLElement = HTMLElement> = Omit<
-  HTMLMotionProps<keyof HTMLElementTagNameMap>,
+  // biome-ignore lint/suspicious/noExplicitAny: No way to fix this
+  HTMLMotionProps<any>,
   "ref"
 > & { ref?: React.Ref<T> };
 
@@ -64,20 +65,24 @@ function Slot<T extends HTMLElement = HTMLElement>({
   ref,
   ...props
 }: SlotProps<T>) {
+  const isValid = React.isValidElement(children);
+  const childrenType = isValid ? children.type : undefined;
+
   const isAlreadyMotion =
-    typeof children.type === "object" &&
-    children.type !== null &&
-    isMotionComponent(children.type);
+    isValid &&
+    typeof childrenType === "object" &&
+    childrenType !== null &&
+    isMotionComponent(childrenType);
 
   const Base = React.useMemo(
     () =>
       isAlreadyMotion
-        ? (children.type as React.ElementType)
-        : motion.create(children.type as React.ElementType),
-    [isAlreadyMotion, children.type]
+        ? (childrenType as React.ElementType)
+        : motion.create((childrenType || "div") as React.ElementType),
+    [isAlreadyMotion, childrenType]
   );
 
-  if (!React.isValidElement(children)) {
+  if (!isValid) {
     return null;
   }
 
