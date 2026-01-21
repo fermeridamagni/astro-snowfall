@@ -5,6 +5,11 @@ on:
   # Using a different branch name? Replace `master` with your branch’s name
   push:
     branches: [ master ]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.json"
+      - "**/*.yml"
+      - "**/*.lock"
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
