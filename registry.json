@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "astro-snowfall",
-  "homepage": "https://astro-snowfall.vercel.app",
+  "homepage": "https://fermeridamagni.github.io/astro-snowfall",
   "items": [
     {
       "name": "snowfall",
