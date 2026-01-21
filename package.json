@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npm run registry:build",
+    "build": "npm run registry:build && astro build",
     "registry:build": "npx shadcn@latest build",
     "preview": "astro preview",
     "astro": "astro"
