@@ -2,6 +2,25 @@
   "name": "astro-snowfall",
   "type": "module",
   "version": "0.0.1",
+  "license": "MIT",
+  "description": "A lightweight, performant canvas-based snowfall background animation component built with Astro and TypeScript.",
+  "author": {
+    "name": "fermeridamagni",
+    "email": "hello@magni.dev",
+    "url": "https://magni.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fermeridamagni/astro-snowfall.git"
+  },
+  "homepage": "https://fermeridamagni.github.io/astro-snowfall",
+  "files": [
+    "src/components/Snowfall.astro",
+    "src/lib/snowfall",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
   "scripts": {
     "dev": "astro dev",
     "build": "npm run registry:build && astro build",
