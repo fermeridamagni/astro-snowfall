@@ -2,7 +2,7 @@
 
 A lightweight, performant canvas-based snowfall background animation component built with Astro and TypeScript. Ported from [react-snowfall](https://github.com/cahilfoley/react-snowfall) for use in Astro projects.
 
-![Astro Snowfall Demo](./preview.png)
+![Astro Snowfall Demo](./public/preview.png)
 
 ## Features
 
@@ -15,9 +15,13 @@ A lightweight, performant canvas-based snowfall background animation component b
 - 🖼️ **Image Support** - Use custom images instead of circles (optional)
 - 🎮 **Programmatic Control** - Play, pause, and update animations dynamically
 
-## Installation
+### Option 1 (recommended)
 
-This is a standalone component. Simply copy the files to your Astro project:
+```bash
+npx shadcn@latest add https://fermeridamagni.github.io/astro-snowfall/r/snowfall.json
+```
+
+### Option 2
 
 ```bash
 # Copy the snowfall library
@@ -331,4 +335,4 @@ If you encounter any issues or have questions, please open an issue on GitHub.
 
 ---
 
-Built with ❄️ by the Astro community
+Built with ❤️ by [@fermeridamagni](https://github.com/fermeridamagni)
