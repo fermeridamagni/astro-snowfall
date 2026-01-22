@@ -1,7 +1,7 @@
 {
   "name": "astro-snowfall",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "A lightweight, performant canvas-based snowfall background animation component built with Astro and TypeScript.",
   "author": {
