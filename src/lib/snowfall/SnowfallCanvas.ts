@@ -15,6 +15,7 @@ export class SnowfallCanvas {
   private animationFrame: number | null = null;
   private isPaused = false;
   private readonly targetFps = 60;
+  private clickHandler: ((event: MouseEvent) => void) | null = null;
 
   constructor(canvas: HTMLCanvasElement, config?: SnowfallCanvasConfig) {
     this.canvas = canvas;
@@ -30,8 +31,60 @@ export class SnowfallCanvas {
     // Initialize snowflakes
     this.createSnowflakes();
 
+    // Setup click interaction if enabled
+    this.setupClickInteraction();
+
     // Start animation
     this.play();
+  }
+
+  /**
+   * Setup click interaction if enabled
+   */
+  private setupClickInteraction(): void {
+    const enableClickInteraction = this.config.enableClickInteraction ?? false;
+
+    // Remove existing click handler if any
+    if (this.clickHandler) {
+      this.canvas.removeEventListener("click", this.clickHandler);
+      this.clickHandler = null;
+    }
+
+    // Add click handler if enabled
+    if (enableClickInteraction) {
+      this.clickHandler = (event: MouseEvent) => {
+        this.handleClick(event);
+      };
+      this.canvas.addEventListener("click", this.clickHandler);
+      this.canvas.style.cursor = "pointer";
+    } else {
+      this.canvas.style.cursor = "";
+    }
+  }
+
+  /**
+   * Handle click on canvas to remove snowflakes
+   */
+  private handleClick(event: MouseEvent): void {
+    const rect = this.canvas.getBoundingClientRect();
+    
+    // Account for canvas scaling - convert screen coordinates to canvas coordinates
+    // Guard against division by zero if canvas is hidden
+    const offsetWidth = this.canvas.offsetWidth || 1;
+    const offsetHeight = this.canvas.offsetHeight || 1;
+    const scaleX = this.canvas.width / offsetWidth;
+    const scaleY = this.canvas.height / offsetHeight;
+    
+    const x = (event.clientX - rect.left) * scaleX;
+    const y = (event.clientY - rect.top) * scaleY;
+
+    // Find and remove clicked snowflake (iterate in reverse to check topmost first)
+    for (let i = this.snowflakes.length - 1; i >= 0; i--) {
+      if (this.snowflakes[i].containsPoint(x, y)) {
+        this.snowflakes.splice(i, 1);
+        break; // Only remove one snowflake per click
+      }
+    }
   }
 
   /**
@@ -48,6 +101,7 @@ export class SnowfallCanvas {
       opacity,
       enable3DRotation,
       images,
+      enableClickInteraction,
     } = defaultSnowflakeConfig;
 
     const snowflakeConfig: SnowflakeProps = {
@@ -60,6 +114,8 @@ export class SnowfallCanvas {
       opacity: this.config.opacity ?? opacity,
       enable3DRotation: this.config.enable3DRotation ?? enable3DRotation,
       images: this.config.images ?? images,
+      enableClickInteraction:
+        this.config.enableClickInteraction ?? enableClickInteraction,
     };
 
     this.snowflakes = Snowflake.createSnowflakes(
@@ -147,6 +203,7 @@ export class SnowfallCanvas {
   updateConfig(config: SnowfallCanvasConfig): void {
     this.config = config;
     this.createSnowflakes();
+    this.setupClickInteraction();
   }
 
   /**
@@ -163,5 +220,11 @@ export class SnowfallCanvas {
   destroy(): void {
     this.pause();
     this.snowflakes = [];
+
+    // Remove click handler if any
+    if (this.clickHandler) {
+      this.canvas.removeEventListener("click", this.clickHandler);
+      this.clickHandler = null;
+    }
   }
 }

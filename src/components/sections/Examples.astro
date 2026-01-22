@@ -1,4 +1,5 @@
 ---
+
 import Snowfall from "@components/Snowfall.astro";
 import CodeBlock from "@ui/CodeBlock.astro";
 
@@ -52,6 +53,24 @@ const examples = [
   radius={[2, 6]}
 />`,
   },
+  {
+    title: "Click to Remove",
+    props: {
+      enableClickInteraction: true,
+      snowflakeCount: 80,
+      speed: [1, 3],
+      wind: [-1, 1],
+      radius: [1, 4],
+      color: "#60A5FA",
+    },
+    code: `<Snowfall 
+  enableClickInteraction={true}
+  snowflakeCount={80}
+  speed={[1, 3]}
+  radius={[1, 4]}
+  color="#60A5FA"
+/>`,
+  },
 ];
 ---
 
@@ -59,7 +78,7 @@ const examples = [
   <div class="max-w-7xl mx-auto px-4 md:px-6">
     <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Examples</h2>
 
-    <div class="grid lg:grid-cols-3 gap-8">
+    <div class="grid lg:grid-cols-2 gap-8">
       {
         examples.map((example) => (
           <div class="flex flex-col gap-4">

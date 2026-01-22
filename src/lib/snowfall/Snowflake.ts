@@ -189,6 +189,16 @@ export class Snowflake {
   }
 
   /**
+   * Check if a point (x, y) is within this snowflake's bounds
+   */
+  containsPoint(x: number, y: number): boolean {
+    const dx = x - this.params.x;
+    const dy = y - this.params.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance <= this.params.radius;
+  }
+
+  /**
    * Static factory method to create multiple snowflakes
    */
   static createSnowflakes(
