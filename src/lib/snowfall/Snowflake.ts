@@ -39,17 +39,20 @@ export class Snowflake {
       rotationZ: random(0, 360),
       framesSinceLastUpdate: 0,
       image: config.images ? randomElement(config.images) : undefined,
+      isAccumulated: false,
     };
   }
 
   /**
    * Update snowflake position and properties based on physics
+   * Returns true if the snowflake should be accumulated
    */
   update(
     canvasWidth: number,
     canvasHeight: number,
-    framesPassed: number
-  ): void {
+    framesPassed: number,
+    accumulationHeight = 0
+  ): boolean {
     const { speed, wind, nextSpeed, nextWind, rotationSpeed } = this.params;
     const { changeFrequency } = this.config;
 
@@ -98,6 +101,14 @@ export class Snowflake {
     } else if (this.params.x < -this.params.radius) {
       this.params.x = canvasWidth + this.params.radius;
     }
+
+    // Check if snowflake should be accumulated
+    const accumulationThreshold = canvasHeight - accumulationHeight;
+    const shouldAccumulate =
+      this.config.enableAccumulation &&
+      this.params.y + this.params.radius >= accumulationThreshold;
+
+    return shouldAccumulate;
   }
 
   /**
@@ -186,6 +197,39 @@ export class Snowflake {
     } else {
       this.drawCircle(ctx);
     }
+  }
+
+  /**
+   * Mark this snowflake as accumulated
+   */
+  markAsAccumulated(yPosition: number): void {
+    this.params.isAccumulated = true;
+    this.params.y = yPosition;
+    this.params.speed = 0;
+    this.params.wind = 0;
+  }
+
+  /**
+   * Reset the snowflake to start falling from the top again
+   */
+  reset(canvasWidth: number, canvasHeight: number): void {
+    const [minSpeed, maxSpeed] = this.config.speed;
+    const [minWind, maxWind] = this.config.wind;
+
+    this.params.x = random(0, canvasWidth);
+    this.params.y = random(-canvasHeight, 0);
+    this.params.speed = random(minSpeed, maxSpeed);
+    this.params.wind = random(minWind, maxWind);
+    this.params.nextSpeed = random(minSpeed, maxSpeed);
+    this.params.nextWind = random(minWind, maxWind);
+    this.params.isAccumulated = false;
+  }
+
+  /**
+   * Check if snowflake is accumulated
+   */
+  get isAccumulated(): boolean {
+    return this.params.isAccumulated;
   }
 
   /**

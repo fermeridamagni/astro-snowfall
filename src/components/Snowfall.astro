@@ -37,6 +37,9 @@ const {
   enable3DRotation,
   images,
   snowflakeCount,
+  enableAccumulation,
+  accumulationMaxHeight,
+  accumulationRate,
   class: className,
   style,
 } = Astro.props;
@@ -53,6 +56,9 @@ const config: SnowfallCanvasConfig = {
   ...(enable3DRotation !== undefined && { enable3DRotation }),
   ...(images && { images }),
   ...(snowflakeCount && { snowflakeCount }),
+  ...(enableAccumulation !== undefined && { enableAccumulation }),
+  ...(accumulationMaxHeight !== undefined && { accumulationMaxHeight }),
+  ...(accumulationRate !== undefined && { accumulationRate }),
 };
 
 // Generate unique ID for this instance

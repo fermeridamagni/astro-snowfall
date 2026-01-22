@@ -15,6 +15,7 @@ export class SnowfallCanvas {
   private animationFrame: number | null = null;
   private isPaused = false;
   private readonly targetFps = 60;
+  private accumulationHeight = 0; // Current height of accumulated snow in pixels
 
   constructor(canvas: HTMLCanvasElement, config?: SnowfallCanvasConfig) {
     this.canvas = canvas;
@@ -60,6 +61,9 @@ export class SnowfallCanvas {
       opacity: this.config.opacity ?? opacity,
       enable3DRotation: this.config.enable3DRotation ?? enable3DRotation,
       images: this.config.images ?? images,
+      enableAccumulation: this.config.enableAccumulation ?? false,
+      accumulationMaxHeight: this.config.accumulationMaxHeight ?? 0.3,
+      accumulationRate: this.config.accumulationRate ?? 0.01,
     };
 
     this.snowflakes = Snowflake.createSnowflakes(
@@ -80,9 +84,37 @@ export class SnowfallCanvas {
     // Calculate frames passed based on target FPS
     const framesPassed = msPassed / (1000 / this.targetFps);
 
+    const enableAccumulation = this.config.enableAccumulation ?? false;
+    const accumulationRate = this.config.accumulationRate ?? 0.01;
+    const maxAccumulationHeight =
+      (this.config.accumulationMaxHeight ?? 0.3) * this.canvas.height;
+
     // Update each snowflake
     for (const snowflake of this.snowflakes) {
-      snowflake.update(this.canvas.width, this.canvas.height, framesPassed);
+      if (snowflake.isAccumulated) {
+        continue; // Skip accumulated snowflakes
+      }
+
+      const shouldAccumulate = snowflake.update(
+        this.canvas.width,
+        this.canvas.height,
+        framesPassed,
+        this.accumulationHeight
+      );
+
+      // Handle accumulation
+      if (enableAccumulation && shouldAccumulate) {
+        const accumulationY = this.canvas.height - this.accumulationHeight;
+        snowflake.markAsAccumulated(accumulationY);
+
+        // Increase accumulation height, but cap at max
+        if (this.accumulationHeight < maxAccumulationHeight) {
+          this.accumulationHeight += accumulationRate;
+        }
+
+        // Reset the snowflake to start falling from the top again
+        snowflake.reset(this.canvas.width, this.canvas.height);
+      }
     }
 
     this.lastUpdate = now;
@@ -95,11 +127,59 @@ export class SnowfallCanvas {
     // Clear canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    // Draw accumulated snow layer if enabled
+    if (
+      this.config.enableAccumulation &&
+      this.accumulationHeight > 0
+    ) {
+      this.renderAccumulatedSnow();
+    }
+
     // Draw all snowflakes
     // Always draw individually for now (we can optimize later)
     for (const snowflake of this.snowflakes) {
-      snowflake.draw(this.ctx);
+      if (!snowflake.isAccumulated) {
+        snowflake.draw(this.ctx);
+      }
     }
+  }
+
+  /**
+   * Render the accumulated snow layer at the bottom
+   */
+  private renderAccumulatedSnow(): void {
+    const accumulationY = this.canvas.height - this.accumulationHeight;
+
+    this.ctx.save();
+
+    // Create a gradient for the accumulated snow
+    const gradient = this.ctx.createLinearGradient(
+      0,
+      accumulationY,
+      0,
+      this.canvas.height
+    );
+
+    // Use the snowflake color with varying opacity
+    const snowColor = this.config.color ?? "#dee4fd";
+    gradient.addColorStop(0, `${snowColor}00`); // Transparent at top
+    gradient.addColorStop(0.3, `${snowColor}66`); // Semi-transparent
+    gradient.addColorStop(1, `${snowColor}CC`); // More opaque at bottom
+
+    // Draw the accumulated snow layer
+    this.ctx.fillStyle = gradient;
+    this.ctx.fillRect(0, accumulationY, this.canvas.width, this.accumulationHeight);
+
+    // Add some texture to make it look more natural
+    this.ctx.globalAlpha = 0.3;
+    for (let i = 0; i < this.accumulationHeight; i += 2) {
+      const y = accumulationY + i;
+      const variance = Math.sin(i * 0.5) * 2;
+      this.ctx.fillStyle = snowColor;
+      this.ctx.fillRect(0, y, this.canvas.width, 1);
+    }
+
+    this.ctx.restore();
   }
 
   /**
@@ -146,6 +226,7 @@ export class SnowfallCanvas {
    */
   updateConfig(config: SnowfallCanvasConfig): void {
     this.config = config;
+    this.accumulationHeight = 0; // Reset accumulation
     this.createSnowflakes();
   }
 
@@ -155,6 +236,7 @@ export class SnowfallCanvas {
   resize(width: number, height: number): void {
     this.canvas.width = width;
     this.canvas.height = height;
+    // Note: We keep accumulation height on resize as it's relative to canvas
   }
 
   /**
