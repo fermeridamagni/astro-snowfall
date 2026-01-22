@@ -162,19 +162,25 @@ export class SnowfallCanvas {
 
     // Use the snowflake color with varying opacity
     const snowColor = this.config.color ?? "#dee4fd";
-    gradient.addColorStop(0, `${snowColor}00`); // Transparent at top
-    gradient.addColorStop(0.3, `${snowColor}66`); // Semi-transparent
-    gradient.addColorStop(1, `${snowColor}CC`); // More opaque at bottom
+    const GRADIENT_TRANSPARENT = "00";
+    const GRADIENT_SEMI_TRANSPARENT = "66";
+    const GRADIENT_OPAQUE = "CC";
+    
+    gradient.addColorStop(0, `${snowColor}${GRADIENT_TRANSPARENT}`); // Transparent at top
+    gradient.addColorStop(0.3, `${snowColor}${GRADIENT_SEMI_TRANSPARENT}`); // Semi-transparent
+    gradient.addColorStop(1, `${snowColor}${GRADIENT_OPAQUE}`); // More opaque at bottom
 
     // Draw the accumulated snow layer
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(0, accumulationY, this.canvas.width, this.accumulationHeight);
 
-    // Add some texture to make it look more natural
+    // Add subtle texture for natural look (limit texture lines for performance)
+    const maxTextureLines = 50;
+    const textureStep = Math.max(2, Math.floor(this.accumulationHeight / maxTextureLines));
+    
     this.ctx.globalAlpha = 0.3;
-    for (let i = 0; i < this.accumulationHeight; i += 2) {
+    for (let i = 0; i < this.accumulationHeight; i += textureStep) {
       const y = accumulationY + i;
-      const variance = Math.sin(i * 0.5) * 2;
       this.ctx.fillStyle = snowColor;
       this.ctx.fillRect(0, y, this.canvas.width, 1);
     }
