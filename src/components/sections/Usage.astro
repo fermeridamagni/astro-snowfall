@@ -34,7 +34,12 @@ import CodeBlock from "@ui/CodeBlock.astro";
             lang="astro"
             title="src/pages/index.astro"
             code={`---
-import Snowfall from '../components/Snowfall.astro';
+import Snowfall from 'astro-snowfall';
+
+/**
+ * or if you are using the library directly:
+ * import Snowfall from '../components/Snowfall.astro';
+ */
 ---
 
 <div class="relative min-h-[500px]">

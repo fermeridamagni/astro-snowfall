@@ -18,10 +18,16 @@ A lightweight, performant canvas-based snowfall background animation component b
 ### Option 1 (recommended)
 
 ```bash
-npx shadcn@latest add https://fermeridamagni.github.io/astro-snowfall/r/snowfall.json
+npm install astro-snowfall
 ```
 
 ### Option 2
+
+```bash
+npx shadcn@latest add https://fermeridamagni.github.io/astro-snowfall/r/snowfall.json
+```
+
+### Option 3
 
 ```bash
 # Copy the snowfall library
@@ -39,7 +45,12 @@ No external dependencies required!
 
 ```astro
 ---
-import Snowfall from '../components/Snowfall.astro';
+import Snowfall from 'astro-snowfall';
+
+/**
+ * or if you are using the library directly:
+ * import Snowfall from '../components/Snowfall.astro';
+ */
 ---
 
 <div class="container">
@@ -62,7 +73,12 @@ import Snowfall from '../components/Snowfall.astro';
 
 ```astro
 ---
-import Snowfall from '../components/Snowfall.astro';
+import Snowfall from 'astro-snowfall';
+
+/**
+ * or if you are using the library directly:
+ * import Snowfall from '../components/Snowfall.astro';
+ */
 ---
 
 <html>
