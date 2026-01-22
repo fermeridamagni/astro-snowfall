@@ -15,6 +15,8 @@ A lightweight, performant canvas-based snowfall background animation component b
 - 🖼️ **Image Support** - Use custom images instead of circles (optional)
 - 🎮 **Programmatic Control** - Play, pause, and update animations dynamically
 
+## Installation
+
 ### Option 1 (recommended)
 
 ```bash
