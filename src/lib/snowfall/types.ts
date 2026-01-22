@@ -75,6 +75,13 @@ export interface SnowfallCanvasConfig extends SnowflakeConfig {
    * @default 150
    */
   snowflakeCount?: number;
+
+  /**
+   * Show FPS counter in the top right corner.
+   * Useful for development and performance monitoring.
+   * @default false
+   */
+  showFPS?: boolean;
 }
 
 /**

@@ -37,6 +37,7 @@ const {
   enable3DRotation,
   images,
   snowflakeCount,
+  showFPS,
   class: className,
   style,
 } = Astro.props;
@@ -53,6 +54,7 @@ const config: SnowfallCanvasConfig = {
   ...(enable3DRotation !== undefined && { enable3DRotation }),
   ...(images && { images }),
   ...(snowflakeCount && { snowflakeCount }),
+  ...(showFPS !== undefined && { showFPS }),
 };
 
 // Generate unique ID for this instance

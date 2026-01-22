@@ -15,6 +15,10 @@ export class SnowfallCanvas {
   private animationFrame: number | null = null;
   private isPaused = false;
   private readonly targetFps = 60;
+  // FPS tracking
+  private frameCount = 0;
+  private lastFpsUpdate: number = Date.now();
+  private currentFps = 0;
 
   constructor(canvas: HTMLCanvasElement, config?: SnowfallCanvasConfig) {
     this.canvas = canvas;
@@ -89,6 +93,57 @@ export class SnowfallCanvas {
   }
 
   /**
+   * Update FPS counter
+   */
+  private updateFPS(): void {
+    this.frameCount++;
+    const now = Date.now();
+    const elapsed = now - this.lastFpsUpdate;
+
+    // Update FPS every 500ms
+    if (elapsed >= 500) {
+      this.currentFps = Math.round((this.frameCount / elapsed) * 1000);
+      this.frameCount = 0;
+      this.lastFpsUpdate = now;
+    }
+  }
+
+  /**
+   * Render FPS counter in top right corner
+   */
+  private renderFPS(): void {
+    if (!this.config.showFPS) return;
+
+    this.ctx.save();
+    
+    // Set up text styling
+    this.ctx.font = "bold 16px monospace";
+    this.ctx.textAlign = "right";
+    this.ctx.textBaseline = "top";
+    
+    // Draw text background
+    const text = `${this.currentFps} FPS`;
+    const padding = 8;
+    const metrics = this.ctx.measureText(text);
+    const textWidth = metrics.width;
+    const textHeight = 16; // approximate height
+    
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    this.ctx.fillRect(
+      this.canvas.width - textWidth - padding * 2,
+      padding,
+      textWidth + padding * 2,
+      textHeight + padding * 2
+    );
+    
+    // Draw text
+    this.ctx.fillStyle = "#00ff00";
+    this.ctx.fillText(text, this.canvas.width - padding, padding * 2);
+    
+    this.ctx.restore();
+  }
+
+  /**
    * Render all snowflakes to canvas
    */
   private render(): void {
@@ -100,6 +155,9 @@ export class SnowfallCanvas {
     for (const snowflake of this.snowflakes) {
       snowflake.draw(this.ctx);
     }
+
+    // Draw FPS counter
+    this.renderFPS();
   }
 
   /**
@@ -110,6 +168,7 @@ export class SnowfallCanvas {
       return;
     }
 
+    this.updateFPS();
     this.update();
     this.render();
 
