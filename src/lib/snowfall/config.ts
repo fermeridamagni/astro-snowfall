@@ -17,6 +17,9 @@ export const defaultSnowflakeConfig: SnowflakeProps = {
   opacity: [1, 1],
   enable3DRotation: false,
   images: undefined,
+  enableAccumulation: false,
+  accumulationMaxHeight: 0.3,
+  accumulationRate: 0.01,
 };
 
 /**

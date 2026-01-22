@@ -59,6 +59,24 @@ export interface SnowflakeProps {
    * @default undefined
    */
   images?: CanvasImageSource[];
+
+  /**
+   * Enable snowflake accumulation at the bottom of the canvas.
+   * @default false
+   */
+  enableAccumulation?: boolean;
+
+  /**
+   * Maximum height of accumulated snow as a percentage of canvas height (0-1).
+   * @default 0.3
+   */
+  accumulationMaxHeight?: number;
+
+  /**
+   * Rate at which snow accumulates (pixels per snowflake).
+   * @default 0.01
+   */
+  accumulationRate?: number;
 }
 
 /**
@@ -111,4 +129,6 @@ export interface SnowflakeParams {
   framesSinceLastUpdate: number;
   /** Image to use for this snowflake (if using images) */
   image?: CanvasImageSource;
+  /** Whether this snowflake has been accumulated */
+  isAccumulated: boolean;
 }

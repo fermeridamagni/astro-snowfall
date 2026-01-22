@@ -52,6 +52,26 @@ const examples = [
   radius={[2, 6]}
 />`,
   },
+  {
+    title: "Winter Accumulation",
+    props: {
+      snowflakeCount: 80,
+      speed: [1, 3],
+      wind: [-0.5, 1],
+      radius: [0.5, 3],
+      enableAccumulation: true,
+      accumulationMaxHeight: 0.25,
+      accumulationRate: 0.02,
+    },
+    code: `<Snowfall 
+  snowflakeCount={80}
+  speed={[1, 3]}
+  wind={[-0.5, 1]}
+  enableAccumulation={true}
+  accumulationMaxHeight={0.25}
+  accumulationRate={0.02}
+/>`,
+  },
 ];
 ---
 
@@ -59,7 +79,7 @@ const examples = [
   <div class="max-w-7xl mx-auto px-4 md:px-6">
     <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Examples</h2>
 
-    <div class="grid lg:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
       {
         examples.map((example) => (
           <div class="flex flex-col gap-4">
