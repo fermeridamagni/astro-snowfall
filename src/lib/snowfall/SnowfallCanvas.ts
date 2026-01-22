@@ -96,6 +96,8 @@ export class SnowfallCanvas {
    * Update FPS counter
    */
   private updateFPS(): void {
+    if (!this.config.showFPS) return;
+
     this.frameCount++;
     const now = Date.now();
     const elapsed = now - this.lastFpsUpdate;
@@ -126,7 +128,7 @@ export class SnowfallCanvas {
     const padding = 8;
     const metrics = this.ctx.measureText(text);
     const textWidth = metrics.width;
-    const textHeight = 16; // approximate height
+    const textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
     
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     this.ctx.fillRect(
