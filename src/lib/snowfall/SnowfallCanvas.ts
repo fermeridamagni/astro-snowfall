@@ -69,8 +69,11 @@ export class SnowfallCanvas {
     const rect = this.canvas.getBoundingClientRect();
     
     // Account for canvas scaling - convert screen coordinates to canvas coordinates
-    const scaleX = this.canvas.width / this.canvas.offsetWidth;
-    const scaleY = this.canvas.height / this.canvas.offsetHeight;
+    // Guard against division by zero if canvas is hidden
+    const offsetWidth = this.canvas.offsetWidth || 1;
+    const offsetHeight = this.canvas.offsetHeight || 1;
+    const scaleX = this.canvas.width / offsetWidth;
+    const scaleY = this.canvas.height / offsetHeight;
     
     const x = (event.clientX - rect.left) * scaleX;
     const y = (event.clientY - rect.top) * scaleY;

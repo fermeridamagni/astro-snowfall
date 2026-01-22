@@ -65,7 +65,7 @@ export interface SnowflakeProps {
    * When enabled, clicking on a snowflake will make it disappear.
    * @default false
    */
-  enableClickInteraction: boolean;
+  enableClickInteraction?: boolean;
 }
 
 /**
