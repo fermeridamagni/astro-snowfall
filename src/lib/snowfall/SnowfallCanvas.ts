@@ -67,16 +67,20 @@ export class SnowfallCanvas {
    */
   private handleClick(event: MouseEvent): void {
     const rect = this.canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    
+    // Account for canvas scaling - convert screen coordinates to canvas coordinates
+    const scaleX = this.canvas.width / this.canvas.offsetWidth;
+    const scaleY = this.canvas.height / this.canvas.offsetHeight;
+    
+    const x = (event.clientX - rect.left) * scaleX;
+    const y = (event.clientY - rect.top) * scaleY;
 
-    // Find and remove clicked snowflake
-    const clickedIndex = this.snowflakes.findIndex((snowflake) =>
-      snowflake.containsPoint(x, y)
-    );
-
-    if (clickedIndex !== -1) {
-      this.snowflakes.splice(clickedIndex, 1);
+    // Find and remove clicked snowflake (iterate in reverse to check topmost first)
+    for (let i = this.snowflakes.length - 1; i >= 0; i--) {
+      if (this.snowflakes[i].containsPoint(x, y)) {
+        this.snowflakes.splice(i, 1);
+        break; // Only remove one snowflake per click
+      }
     }
   }
 
