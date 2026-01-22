@@ -91,10 +91,6 @@ export class SnowfallCanvas {
 
     // Update each snowflake
     for (const snowflake of this.snowflakes) {
-      if (snowflake.isAccumulated) {
-        continue; // Skip accumulated snowflakes
-      }
-
       const shouldAccumulate = snowflake.update(
         this.canvas.width,
         this.canvas.height,
@@ -104,9 +100,6 @@ export class SnowfallCanvas {
 
       // Handle accumulation
       if (enableAccumulation && shouldAccumulate) {
-        const accumulationY = this.canvas.height - this.accumulationHeight;
-        snowflake.markAsAccumulated(accumulationY);
-
         // Increase accumulation height, but cap at max
         if (this.accumulationHeight < maxAccumulationHeight) {
           this.accumulationHeight += accumulationRate;
@@ -138,9 +131,7 @@ export class SnowfallCanvas {
     // Draw all snowflakes
     // Always draw individually for now (we can optimize later)
     for (const snowflake of this.snowflakes) {
-      if (!snowflake.isAccumulated) {
-        snowflake.draw(this.ctx);
-      }
+      snowflake.draw(this.ctx);
     }
   }
 

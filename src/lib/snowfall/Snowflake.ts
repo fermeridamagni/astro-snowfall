@@ -200,16 +200,6 @@ export class Snowflake {
   }
 
   /**
-   * Mark this snowflake as accumulated
-   */
-  markAsAccumulated(yPosition: number): void {
-    this.params.isAccumulated = true;
-    this.params.y = yPosition;
-    this.params.speed = 0;
-    this.params.wind = 0;
-  }
-
-  /**
    * Reset the snowflake to start falling from the top again
    */
   reset(canvasWidth: number, canvasHeight: number): void {
@@ -223,13 +213,6 @@ export class Snowflake {
     this.params.nextSpeed = random(minSpeed, maxSpeed);
     this.params.nextWind = random(minWind, maxWind);
     this.params.isAccumulated = false;
-  }
-
-  /**
-   * Check if snowflake is accumulated
-   */
-  get isAccumulated(): boolean {
-    return this.params.isAccumulated;
   }
 
   /**
