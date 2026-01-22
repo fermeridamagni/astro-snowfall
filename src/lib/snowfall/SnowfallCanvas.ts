@@ -107,7 +107,8 @@ export class SnowfallCanvas {
       opacity: this.config.opacity ?? opacity,
       enable3DRotation: this.config.enable3DRotation ?? enable3DRotation,
       images: this.config.images ?? images,
-      enableClickInteraction: this.config.enableClickInteraction ?? enableClickInteraction,
+      enableClickInteraction:
+        this.config.enableClickInteraction ?? enableClickInteraction,
     };
 
     this.snowflakes = Snowflake.createSnowflakes(
@@ -212,7 +213,7 @@ export class SnowfallCanvas {
   destroy(): void {
     this.pause();
     this.snowflakes = [];
-    
+
     // Remove click handler if any
     if (this.clickHandler) {
       this.canvas.removeEventListener("click", this.clickHandler);
