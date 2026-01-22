@@ -15,6 +15,7 @@ export class SnowfallCanvas {
   private animationFrame: number | null = null;
   private isPaused = false;
   private readonly targetFps = 60;
+  private clickHandler: ((event: MouseEvent) => void) | null = null;
 
   constructor(canvas: HTMLCanvasElement, config?: SnowfallCanvasConfig) {
     this.canvas = canvas;
@@ -30,8 +31,53 @@ export class SnowfallCanvas {
     // Initialize snowflakes
     this.createSnowflakes();
 
+    // Setup click interaction if enabled
+    this.setupClickInteraction();
+
     // Start animation
     this.play();
+  }
+
+  /**
+   * Setup click interaction if enabled
+   */
+  private setupClickInteraction(): void {
+    const enableClickInteraction = this.config.enableClickInteraction ?? false;
+
+    // Remove existing click handler if any
+    if (this.clickHandler) {
+      this.canvas.removeEventListener("click", this.clickHandler);
+      this.clickHandler = null;
+    }
+
+    // Add click handler if enabled
+    if (enableClickInteraction) {
+      this.clickHandler = (event: MouseEvent) => {
+        this.handleClick(event);
+      };
+      this.canvas.addEventListener("click", this.clickHandler);
+      this.canvas.style.cursor = "pointer";
+    } else {
+      this.canvas.style.cursor = "";
+    }
+  }
+
+  /**
+   * Handle click on canvas to remove snowflakes
+   */
+  private handleClick(event: MouseEvent): void {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    // Find and remove clicked snowflake
+    const clickedIndex = this.snowflakes.findIndex((snowflake) =>
+      snowflake.containsPoint(x, y)
+    );
+
+    if (clickedIndex !== -1) {
+      this.snowflakes.splice(clickedIndex, 1);
+    }
   }
 
   /**
@@ -48,6 +94,7 @@ export class SnowfallCanvas {
       opacity,
       enable3DRotation,
       images,
+      enableClickInteraction,
     } = defaultSnowflakeConfig;
 
     const snowflakeConfig: SnowflakeProps = {
@@ -60,6 +107,7 @@ export class SnowfallCanvas {
       opacity: this.config.opacity ?? opacity,
       enable3DRotation: this.config.enable3DRotation ?? enable3DRotation,
       images: this.config.images ?? images,
+      enableClickInteraction: this.config.enableClickInteraction ?? enableClickInteraction,
     };
 
     this.snowflakes = Snowflake.createSnowflakes(
@@ -147,6 +195,7 @@ export class SnowfallCanvas {
   updateConfig(config: SnowfallCanvasConfig): void {
     this.config = config;
     this.createSnowflakes();
+    this.setupClickInteraction();
   }
 
   /**
@@ -163,5 +212,11 @@ export class SnowfallCanvas {
   destroy(): void {
     this.pause();
     this.snowflakes = [];
+    
+    // Remove click handler if any
+    if (this.clickHandler) {
+      this.canvas.removeEventListener("click", this.clickHandler);
+      this.clickHandler = null;
+    }
   }
 }

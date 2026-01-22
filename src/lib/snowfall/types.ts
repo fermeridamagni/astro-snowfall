@@ -59,6 +59,13 @@ export interface SnowflakeProps {
    * @default undefined
    */
   images?: CanvasImageSource[];
+
+  /**
+   * Enable click interaction with snowflakes.
+   * When enabled, clicking on a snowflake will make it disappear.
+   * @default false
+   */
+  enableClickInteraction: boolean;
 }
 
 /**

@@ -17,6 +17,7 @@ export const defaultSnowflakeConfig: SnowflakeProps = {
   opacity: [1, 1],
   enable3DRotation: false,
   images: undefined,
+  enableClickInteraction: false,
 };
 
 /**
