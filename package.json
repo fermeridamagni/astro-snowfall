@@ -41,7 +41,9 @@
     "dev": "portless run astro dev",
     "build": "npm run registry:build && astro build",
     "registry:build": "npx shadcn@latest build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "fix": "ultracite fix",
+    "check": "ultracite check"
   },
   "dependencies": {
     "@astrojs/react": "6.0.1",
