@@ -44,14 +44,14 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/react": "6.0.1",
+    "@astrojs/sitemap": "3.7.3",
     "@lucide/astro": "^1.25.0",
     "@magnidev/tailwindcss-utils": "^1.0.2",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "astro": "5.16.12",
+    "astro": "7.1.1",
     "lucide-react": "^1.25.0",
     "motion": "^12.42.2",
     "react": "^19.2.7",
