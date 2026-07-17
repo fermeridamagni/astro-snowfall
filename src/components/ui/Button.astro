@@ -1,9 +1,9 @@
 ---
 interface Props {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
-  href?: string;
   class?: string;
+  href?: string;
+  size?: "sm" | "md" | "lg";
+  variant?: "primary" | "secondary" | "outline" | "ghost";
   [key: string]: any;
 }
 
@@ -16,18 +16,18 @@ const {
 } = Astro.props;
 
 const variants = {
+  ghost: "text-gray-400 hover:text-white hover:bg-white/5",
+  outline: "border border-white/20 text-white hover:bg-white/5",
   primary:
     "bg-white text-black hover:bg-gray-200 border border-transparent shadow-[0_0_15px_rgba(255,255,255,0.3)]",
   secondary:
     "bg-white/10 hover:bg-white/20 text-white border border-white/10 backdrop-blur-sm",
-  outline: "border border-white/20 text-white hover:bg-white/5",
-  ghost: "text-gray-400 hover:text-white hover:bg-white/5",
 };
 
 const sizes = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-5 py-2.5 text-base",
   lg: "px-8 py-4 text-lg font-semibold",
+  md: "px-5 py-2.5 text-base",
+  sm: "px-3 py-1.5 text-sm",
 };
 
 const styles = `
@@ -40,6 +40,6 @@ const styles = `
 const Tag = href ? "a" : "button";
 ---
 
-<Tag href={href} class={styles} {...rest}>
+<Tag class={styles} href={href} {...rest}>
   <slot />
 </Tag>

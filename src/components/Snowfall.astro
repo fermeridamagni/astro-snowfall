@@ -60,10 +60,10 @@ const canvasId = `snowfall-canvas-${Math.random().toString(36).substring(2, 9)}`
 ---
 
 <canvas
+  data-config={JSON.stringify(config)}
   id={canvasId}
-  class:list={[className, "js-snowfall-canvas"]}
   style={style}
-  data-config={JSON.stringify(config)}></canvas>
+  class:list={[className, "js-snowfall-canvas"]}></canvas>
 
 <script>
   import { SnowfallCanvas } from "../lib/snowfall/SnowfallCanvas";
@@ -94,7 +94,7 @@ const canvasId = `snowfall-canvas-${Math.random().toString(36).substring(2, 9)}`
           const height = canvas.offsetHeight || window.innerHeight;
           canvas.width = width;
           canvas.height = height;
-          return { width, height };
+          return { height, width };
         };
 
         resizeCanvas();

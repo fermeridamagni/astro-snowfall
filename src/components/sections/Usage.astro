@@ -3,14 +3,14 @@ import Badge from "@ui/Badge.astro";
 import CodeBlock from "@ui/CodeBlock.astro";
 ---
 
-<section id="usage" class="py-24 relative">
+<section class="py-24 relative" id="usage" >
   <div class="max-w-7xl mx-auto px-4 md:px-6">
     <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Usage</h2>
 
     <div class="space-y-24">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <Badge variant="success" class="mb-4">Quick Start</Badge>
+          <Badge class="mb-4" variant="success" >Quick Start</Badge>
           <h3 class="text-2xl font-bold mb-4 text-white">
             Basic Implementation
           </h3>
@@ -31,8 +31,6 @@ import CodeBlock from "@ui/CodeBlock.astro";
         </div>
         <div class="w-full">
           <CodeBlock
-            lang="astro"
-            title="src/pages/index.astro"
             code={`---
 import Snowfall from 'astro-snowfall';
 
@@ -48,13 +46,15 @@ import Snowfall from 'astro-snowfall';
     <h1>Winter is coming</h1>
   </div>
 </div>`}
+            lang="astro"
+            title="src/pages/index.astro"
           />
         </div>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="lg:order-2">
-          <Badge variant="warning" class="mb-4">Popular</Badge>
+          <Badge class="mb-4" variant="warning" >Popular</Badge>
           <h3 class="text-2xl font-bold mb-4 text-white">
             Full Screen Background
           </h3>
@@ -65,13 +65,13 @@ import Snowfall from 'astro-snowfall';
         </div>
         <div class="w-full lg:order-1">
           <CodeBlock
-            lang="astro"
-            title="FullScreen.astro"
             code={`<Snowfall 
   class="fixed inset-0 z-0 pointer-events-none"
   color="#fff"
   snowflakeCount={200}
 />`}
+            lang="astro"
+            title="FullScreen.astro"
           />
         </div>
       </div>

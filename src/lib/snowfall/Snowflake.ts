@@ -24,21 +24,21 @@ export class Snowflake {
     const [minOpacity, maxOpacity] = config.opacity;
 
     this.params = {
-      x: random(0, canvasWidth),
-      y: random(-canvasHeight, 0), // Start above the visible area
-      radius: random(minRadius, maxRadius),
-      speed: random(minSpeed, maxSpeed),
-      wind: random(minWind, maxWind),
+      framesSinceLastUpdate: 0,
+      image: config.images ? randomElement(config.images) : undefined,
       nextSpeed: random(minSpeed, maxSpeed),
       nextWind: random(minWind, maxWind),
+      opacity: random(minOpacity, maxOpacity),
+      radius: random(minRadius, maxRadius),
       rotation: random(0, 360),
       rotationSpeed: random(minRotation, maxRotation),
-      opacity: random(minOpacity, maxOpacity),
       rotationX: random(0, 360),
       rotationY: random(0, 360),
       rotationZ: random(0, 360),
-      framesSinceLastUpdate: 0,
-      image: config.images ? randomElement(config.images) : undefined,
+      speed: random(minSpeed, maxSpeed),
+      wind: random(minWind, maxWind),
+      x: random(0, canvasWidth),
+      y: random(-canvasHeight, 0), // Start above the visible area
     };
   }
 

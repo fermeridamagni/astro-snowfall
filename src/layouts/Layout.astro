@@ -4,9 +4,9 @@ import Snowfall from "@components/Snowfall.astro";
 import "@styles/global.css";
 
 interface Props {
-  title: string;
   description?: string;
   image?: string;
+  title: string;
   type?: string;
 }
 
@@ -21,49 +21,49 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en" class="dark antialiased scroll-smooth">
+<html class="dark antialiased scroll-smooth" lang="en" >
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="canonical" href={canonicalURL} />
+    <meta content={description} name="description" />
+    <meta content="width=device-width" name="viewport" />
+    <link href={canonicalURL} rel="canonical" />
 
     <!-- General Meta Tags -->
-    <meta name="author" content="fermeridamagni" />
-    <link rel="author" href="https://github.com/fermeridamagni" />
-    <meta name="publisher" content="fermeridamagni" />
-    <meta name="creator" content="fermeridamagni" />
+    <meta content="fermeridamagni" name="author" />
+    <link href="https://github.com/fermeridamagni" rel="author" />
+    <meta content="fermeridamagni" name="publisher" />
+    <meta content="fermeridamagni" name="creator" />
     <meta
-      name="keywords"
       content="astro, snowfall, animation, canvas, typescript, component, web design"
+      name="keywords"
     />
-    <meta name="generator" content={Astro.generator} />
+    <meta content={Astro.generator} name="generator" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content={type} />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta content={type} property="og:type" />
+    <meta content={Astro.url} property="og:url" />
+    <meta content={title} property="og:title" />
+    <meta content={description} property="og:description" />
+    <meta content={new URL(image, Astro.site)} property="og:image" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.site)} />
-    <meta property="twitter:creator" content="@fermeridamagni" />
+    <meta content="summary_large_image" property="twitter:card" />
+    <meta content={Astro.url} property="twitter:url" />
+    <meta content={title} property="twitter:title" />
+    <meta content={description} property="twitter:description" />
+    <meta content={new URL(image, Astro.site)} property="twitter:image" />
+    <meta content="@fermeridamagni" property="twitter:creator" />
 
     <link
+      href={`${import.meta.env.BASE_URL}/favicon.svg`}
       rel="icon"
       type="image/svg+xml"
-      href={`${import.meta.env.BASE_URL}/favicon.svg`}
     />
     <title>{title}</title>
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap"
       rel="stylesheet"
@@ -80,10 +80,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Global Snowfall Background -->
     <div class="fixed inset-0 z-0 pointer-events-none opacity-40">
       <Snowfall
+        radius={[0.5, 2.5]}
         snowflakeCount={100}
         speed={[0.5, 1.5]}
         wind={[-0.2, 0.5]}
-        radius={[0.5, 2.5]}
       />
     </div>
 

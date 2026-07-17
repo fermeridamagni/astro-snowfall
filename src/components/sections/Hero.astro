@@ -10,11 +10,11 @@ import Button from "@ui/Button.astro";
 >
   <div class="absolute inset-0 z-0">
     <Snowfall
+      enable3DRotation={true}
+      radius={[0.5, 3.5]}
       snowflakeCount={200}
       speed={[0.5, 2.5]}
       wind={[-0.5, 1.5]}
-      radius={[0.5, 3.5]}
-      enable3DRotation={true}
     />
   </div>
 
@@ -22,7 +22,7 @@ import Button from "@ui/Button.astro";
     class="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 flex flex-col items-center text-center"
   >
     <div class="mb-6 animate-[float_6s_ease-in-out_infinite]">
-      <Badge variant="outline" class="backdrop-blur-md">
+      <Badge class="backdrop-blur-md" variant="outline" >
         <span class="mr-2">🎉</span> New: 3D Rotation Support
       </Badge>
     </div>
@@ -44,18 +44,18 @@ import Button from "@ui/Button.astro";
 
     <div class="flex flex-col sm:flex-row gap-4">
       <Button
+        class="shadow-purple-500/25 shadow-lg"
         href="#installation"
         size="lg"
-        class="shadow-purple-500/25 shadow-lg"
       >
         Get Started
       </Button>
 
       <Button
         href="https://github.com/fermeridamagni/astro-snowfall"
-        variant="secondary"
         size="lg"
         target="_blank"
+        variant="secondary"
       >
         <GithubIcon />
         GitHub

@@ -4,58 +4,52 @@ import CodeBlock from "@ui/CodeBlock.astro";
 
 const examples = [
   {
-    title: "Heavy Blizzard",
+    code: `<Snowfall
+  snowflakeCount={100}
+  speed={[3, 8]}
+  wind={[-2, 2]}
+/>`,
     props: {
       snowflakeCount: 100,
       speed: [3, 8],
       wind: [-2, 2],
-      radius: [0.5, 3],
     },
-    code: `<Snowfall 
-  snowflakeCount={100}
-  speed={[3, 8]}
-  wind={[-2, 2]}
-  radius={[0.5, 3]}
-/>`,
+    title: "Heavy Blizzard",
   },
   {
-    title: "Gentle Flurries",
-    props: {
-      snowflakeCount: 40,
-      speed: [0.5, 1.5],
-      wind: [-0.5, 0.5],
-      radius: [1, 2],
-      opacity: [0.4, 0.8],
-    },
-    code: `<Snowfall 
+    code: `<Snowfall
   snowflakeCount={40}
   speed={[0.5, 1.5]}
   wind={[-0.5, 0.5]}
-  radius={[1, 2]}
 />`,
+    props: {
+      opacity: [0.4, 0.8],
+      snowflakeCount: 40,
+      speed: [0.5, 1.5],
+      wind: [-0.5, 0.5],
+    },
+    title: "Gentle Flurries",
   },
   {
-    title: "Confetti Party",
-    props: {
-      color: "#EC4899", // Pink
-      enable3DRotation: true,
-      snowflakeCount: 50,
-      speed: [2, 4],
-      rotationSpeed: [-5, 5],
-      radius: [2, 6],
-    },
-    code: `<Snowfall 
+    code: `<Snowfall
   color="#EC4899"
   enable3DRotation={true}
   snowflakeCount={50}
   rotationSpeed={[-5, 5]}
-  radius={[2, 6]}
 />`,
+    props: {
+      color: "#EC4899", // Pink
+      enable3DRotation: true,
+      rotationSpeed: [-5, 5],
+      snowflakeCount: 50,
+      speed: [2, 4],
+    },
+    title: "Confetti Party",
   },
 ];
 ---
 
-<section id="examples" class="py-24 relative">
+<section class="py-24 relative" id="examples" >
   <div class="max-w-7xl mx-auto px-4 md:px-6">
     <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Examples</h2>
 
@@ -65,7 +59,8 @@ const examples = [
           <div class="flex flex-col gap-4">
             <div class="relative h-64 rounded-2xl overflow-hidden border border-white/10 bg-[#0a0e27]">
               <Snowfall {...example.props} />
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/80 to-transparent">
                 <h3 class="text-white font-bold">{example.title}</h3>
               </div>
             </div>

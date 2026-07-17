@@ -51,15 +51,15 @@ export class SnowfallCanvas {
     } = defaultSnowflakeConfig;
 
     const snowflakeConfig: SnowflakeProps = {
-      color: this.config.color ?? color,
-      radius: this.config.radius ?? radius,
-      speed: this.config.speed ?? speed,
-      wind: this.config.wind ?? wind,
       changeFrequency: this.config.changeFrequency ?? changeFrequency,
-      rotationSpeed: this.config.rotationSpeed ?? rotationSpeed,
-      opacity: this.config.opacity ?? opacity,
+      color: this.config.color ?? color,
       enable3DRotation: this.config.enable3DRotation ?? enable3DRotation,
       images: this.config.images ?? images,
+      opacity: this.config.opacity ?? opacity,
+      radius: this.config.radius ?? radius,
+      rotationSpeed: this.config.rotationSpeed ?? rotationSpeed,
+      speed: this.config.speed ?? speed,
+      wind: this.config.wind ?? wind,
     };
 
     this.snowflakes = Snowflake.createSnowflakes(

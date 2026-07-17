@@ -1,8 +1,8 @@
 import React from "react";
 
 interface CommonControlledStateProps<T> {
-  value?: T;
   defaultValue?: T;
+  value?: T;
 }
 
 export function useControlledState<T, Rest extends unknown[] = []>(
@@ -13,7 +13,7 @@ export function useControlledState<T, Rest extends unknown[] = []>(
   const { value, defaultValue, onChange } = props;
 
   const [state, setInternalState] = React.useState<T>(
-    value !== undefined ? value : (defaultValue as T)
+    value === undefined ? (defaultValue as T) : value
   );
 
   React.useEffect(() => {
