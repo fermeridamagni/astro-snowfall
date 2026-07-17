@@ -214,14 +214,14 @@ All props are optional. The component uses sensible defaults for all properties.
 
 The snowfall animation is built with three core components:
 
-### 1. **Snowflake Class** (`Snowflake.ts`)
+### 1. **Snowflake Class** (`snowflake.ts`)
 Each snowflake is an individual entity with its own properties:
 - Position (x, y coordinates)
 - Velocity (speed and wind)
 - Appearance (radius, opacity, rotation)
 - Physics (lerping between target values)
 
-### 2. **SnowfallCanvas Controller** (`SnowfallCanvas.ts`)
+### 2. **SnowfallCanvas Controller** (`snowfall-canvas.ts`)
 Manages the animation lifecycle:
 - Creates and maintains snowflake collection
 - Runs animation loop with `requestAnimationFrame`
@@ -321,8 +321,8 @@ src/
 │   └── Snowfall.astro              # Main Astro component
 ├── lib/
 │   └── snowfall/
-│       ├── Snowflake.ts            # Individual snowflake class
-│       ├── SnowfallCanvas.ts       # Animation controller
+│       ├── snowflake.ts            # Individual snowflake class
+│       ├── snowfall-canvas.ts       # Animation controller
 │       ├── types.ts                # TypeScript definitions
 │       ├── utils.ts                # Helper functions
 │       └── config.ts               # Default configuration

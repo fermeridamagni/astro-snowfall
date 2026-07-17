@@ -24,11 +24,11 @@
           "type": "registry:lib"
         },
         {
-          "path": "src/lib/snowfall/SnowfallCanvas.ts",
+          "path": "src/lib/snowfall/snowfall-canvas.ts",
           "type": "registry:lib"
         },
         {
-          "path": "src/lib/snowfall/Snowflake.ts",
+          "path": "src/lib/snowfall/snowflake.ts",
           "type": "registry:lib"
         },
         {

@@ -3,7 +3,7 @@
  */
 
 import { defaultSnowflakeConfig } from "./config";
-import { Snowflake } from "./Snowflake";
+import { Snowflake } from "./snowflake";
 import type { SnowfallCanvasConfig, SnowflakeProps } from "./types";
 
 export class SnowfallCanvas {
@@ -13,7 +13,6 @@ export class SnowfallCanvas {
   private snowflakes: Snowflake[] = [];
   private lastUpdate: number = Date.now();
   private animationFrame: number | null = null;
-  private isPaused = false;
   private readonly targetFps = 60;
 
   constructor(canvas: HTMLCanvasElement, config?: SnowfallCanvasConfig) {
@@ -106,10 +105,6 @@ export class SnowfallCanvas {
    * Main animation loop
    */
   private readonly loop = (): void => {
-    if (this.isPaused) {
-      return;
-    }
-
     this.update();
     this.render();
 
@@ -120,12 +115,10 @@ export class SnowfallCanvas {
    * Start or resume the animation
    */
   play(): void {
-    const isAlreadyPlaying = !this.isPaused && this.animationFrame !== null;
-    if (isAlreadyPlaying) {
+    if (this.animationFrame !== null) {
       return;
     }
 
-    this.isPaused = false;
     this.lastUpdate = Date.now();
     this.loop();
   }
@@ -134,7 +127,6 @@ export class SnowfallCanvas {
    * Pause the animation
    */
   pause(): void {
-    this.isPaused = true;
     if (this.animationFrame !== null) {
       cancelAnimationFrame(this.animationFrame);
       this.animationFrame = null;

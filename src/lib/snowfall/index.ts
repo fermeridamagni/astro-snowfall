@@ -10,8 +10,8 @@
 
 // biome-ignore lint/performance/noBarrelFile: Not a problem for this use case
 export { defaultConfig, defaultSnowflakeConfig, mergeConfig } from "./config";
-export { SnowfallCanvas } from "./SnowfallCanvas";
-export { Snowflake } from "./Snowflake";
+export { SnowfallCanvas } from "./snowfall-canvas";
+export { Snowflake } from "./snowflake";
 export type {
   SnowfallCanvasConfig,
   SnowflakeConfig,
