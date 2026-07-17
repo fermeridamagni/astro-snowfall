@@ -20,7 +20,7 @@
    - Default canvas configuration
    - Configuration merging utility
 
-4. **Snowflake Class** ([src/lib/snowfall/Snowflake.ts](src/lib/snowfall/Snowflake.ts))
+4. **Snowflake Class** ([src/lib/snowfall/snowflake.ts](src/lib/snowfall/snowflake.ts))
    - Physics-based position updates
    - Velocity interpolation (lerp)
    - Circle rendering (2D and 3D)
@@ -28,7 +28,7 @@
    - 3D rotation transformation matrices
    - Factory method for bulk creation
 
-5. **SnowfallCanvas Controller** ([src/lib/snowfall/SnowfallCanvas.ts](src/lib/snowfall/SnowfallCanvas.ts))
+5. **SnowfallCanvas Controller** ([src/lib/snowfall/snowfall-canvas.ts](src/lib/snowfall/snowfall-canvas.ts))
    - Animation loop with `requestAnimationFrame`
    - Frame-based updates (60fps target)
    - Play/pause controls
@@ -112,8 +112,8 @@ astro-snowfall/
 │   │   └── Snowfall.astro             # Main Astro component
 │   ├── lib/
 │   │   └── snowfall/
-│   │       ├── Snowflake.ts           # Individual snowflake class
-│   │       ├── SnowfallCanvas.ts      # Animation controller
+│   │       ├── snowflake.ts           # Individual snowflake class
+│   │       ├── snowfall-canvas.ts      # Animation controller
 │   │       ├── types.ts               # TypeScript definitions
 │   │       ├── utils.ts               # Helper functions
 │   │       ├── config.ts              # Default configuration
