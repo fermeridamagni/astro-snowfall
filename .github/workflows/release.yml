@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
+          registry-url: 'https://registry.npmjs.org'
           package-manager-cache: false # never use caching in release builds
 
       - name: Setup Bun
@@ -36,4 +37,4 @@ jobs:
         run: bun run build
 
       - name: Publish to npm
-        run: npm publish
+        run: npm publish --provenance
