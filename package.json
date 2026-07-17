@@ -38,31 +38,31 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "portless run astro dev",
     "build": "npm run registry:build && astro build",
     "registry:build": "npx shadcn@latest build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.0",
-    "@lucide/astro": "^0.562.0",
+    "@lucide/astro": "^1.25.0",
     "@magnidev/tailwindcss-utils": "^1.0.2",
-    "@tailwindcss/vite": "^4.1.18",
-    "@types/react": "^19.2.9",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "astro": "5.16.12",
-    "lucide-react": "^0.562.0",
-    "motion": "^12.28.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "lucide-react": "^1.25.0",
+    "motion": "^12.42.2",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "tailwind-variants": "^3.2.2",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.11",
-    "ultracite": "7.0.12"
+    "@biomejs/biome": "2.5.4",
+    "portless": "^0.15.4",
+    "ultracite": "7.9.4"
   },
   "packageManager": "bun@1.3.6"
 }
