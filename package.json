@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fermeridamagni/astro-snowfall.git"
+    "url": "git+https://github.com/fermeridamagni/astro-snowfall.git"
   },
   "homepage": "https://fermeridamagni.github.io/astro-snowfall",
   "keywords": [
