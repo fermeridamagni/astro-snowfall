@@ -23,5 +23,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# release draft artifacts
+.release/
+
 # jetbrains setting folder
 .idea/
