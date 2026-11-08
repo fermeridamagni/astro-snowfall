@@ -1,8 +1,15 @@
 ---
 import Snowfall from "@components/Snowfall.astro";
+import type { SnowfallCanvasConfig } from "@lib/snowfall/types";
 import CodeBlock from "@ui/CodeBlock.astro";
 
-const examples = [
+interface ExampleItem {
+  code: string;
+  props: SnowfallCanvasConfig;
+  title: string;
+}
+
+const examples: ExampleItem[] = [
   {
     code: `<Snowfall
   snowflakeCount={100}
