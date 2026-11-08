@@ -3,11 +3,11 @@ import GithubIcon from "@components/icons/github-icon.astro";
 ---
 
 <header
-  class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl transition-all duration-300"
+  class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none px-4"
   id="main-header"
 >
   <nav
-    class="glass-chrome rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between"
+    class="w-full max-w-4xl glass-chrome rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between pointer-events-auto"
     aria-label="Main Navigation"
   >
     <a
@@ -41,8 +41,13 @@ import GithubIcon from "@components/icons/github-icon.astro";
       </span>
     </a>
 
-    <div class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400">
-      <a href="#installation" class="hover:text-white transition-colors duration-150">
+    <div
+      class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400"
+    >
+      <a
+        href="#installation"
+        class="hover:text-white transition-colors duration-150"
+      >
         Installation
       </a>
       <a href="#features" class="hover:text-white transition-colors duration-150">
