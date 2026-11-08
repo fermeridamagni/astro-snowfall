@@ -7,6 +7,26 @@
   ],
   "overrides": [
     {
+      "includes": ["src/**/*.tsx", "src/**/*.ts"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredDependencies": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/styles/**/*.css"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "useBaseline": "off"
+          }
+        }
+      }
+    },
+    {
       /*
        * This override is specifically to disable Biome in Astro files,
        * as Biome's Astro support is currently limited and may conflict
