@@ -7,9 +7,11 @@ on:
     branches: [ master ]
     paths-ignore:
       - "**/*.md"
-      - "**/*.json"
-      - "**/*.yml"
-      - "**/*.lock"
+      - ".vscode/**"
+      - ".zed/**"
+      - ".release/**"
+      - ".github/workflows/release.yml"
+      - ".github/workflows/auto-assign.yml"
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
@@ -24,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
       - name: Install, build, and upload your site
-        uses: withastro/action@v6
+        uses: withastro/action@v3
         with:
           path: .
           node-version: 22

@@ -8,7 +8,7 @@ on:
     types: [ opened, reopened ]
 
 concurrency:
-  group: auto-assign-${{ github.ref }} # Group runs by the current ref to avoid conflicts
+  group: auto-assign-${{ github.event.issue.number || github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
+      issues: write
+      pull-requests: write
 
     steps:
       - name: "Auto-assign issue"
