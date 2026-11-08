@@ -65,35 +65,35 @@ const propsList = [
 ];
 ---
 
-<section class="py-28 relative reveal-section" id="docs">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+<section class="py-20 sm:py-28 relative reveal-section w-full overflow-hidden" id="docs">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 w-full min-w-0">
     <!-- Header -->
-    <div class="reveal-header text-center max-w-2xl mx-auto mb-16">
+    <div class="reveal-header text-center max-w-2xl mx-auto mb-12 sm:mb-16">
       <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
         Props Specification
       </h2>
-      <p class="text-zinc-400 text-base sm:text-lg">
+      <p class="text-zinc-400 text-sm sm:text-lg">
         Comprehensive reference of all configurable properties accepted by the component.
       </p>
     </div>
 
     <!-- Props Table Card -->
-    <div class="reveal-card">
-      <Card class="overflow-hidden p-0 border border-white/10 bg-[#070709]">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse text-sm">
+    <div class="reveal-card w-full min-w-0">
+      <Card class="overflow-hidden p-0 border border-white/10 bg-[#070709] w-full min-w-0">
+        <div class="overflow-x-auto no-scrollbar w-full max-w-full">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm min-w-[540px]">
             <thead>
               <tr class="border-b border-white/[0.08] bg-white/[0.03] text-zinc-300">
-                <th class="py-4 px-6 font-medium text-xs font-mono uppercase tracking-wider">
+                <th class="py-3.5 sm:py-4 px-4 sm:px-6 font-medium text-[11px] sm:text-xs font-mono uppercase tracking-wider">
                   Prop
                 </th>
-                <th class="py-4 px-6 font-medium text-xs font-mono uppercase tracking-wider">
+                <th class="py-3.5 sm:py-4 px-4 sm:px-6 font-medium text-[11px] sm:text-xs font-mono uppercase tracking-wider">
                   Type
                 </th>
-                <th class="py-4 px-6 font-medium text-xs font-mono uppercase tracking-wider">
+                <th class="py-3.5 sm:py-4 px-4 sm:px-6 font-medium text-[11px] sm:text-xs font-mono uppercase tracking-wider">
                   Default
                 </th>
-                <th class="py-4 px-6 font-medium text-xs uppercase tracking-wider">
+                <th class="py-3.5 sm:py-4 px-4 sm:px-6 font-medium text-[11px] sm:text-xs uppercase tracking-wider">
                   Description
                 </th>
               </tr>
@@ -102,18 +102,18 @@ const propsList = [
               {
                 propsList.map((item) => (
                   <tr class="hover:bg-white/[0.02] transition-colors">
-                    <td class="py-4 px-6 font-mono text-white font-medium">
+                    <td class="py-3.5 sm:py-4 px-4 sm:px-6 font-mono text-white font-medium whitespace-nowrap">
                       {item.name}
                     </td>
-                    <td class="py-4 px-6">
-                      <span class="font-mono text-xs text-zinc-400 bg-white/[0.05] px-2 py-0.5 rounded border border-white/[0.08]">
+                    <td class="py-3.5 sm:py-4 px-4 sm:px-6 whitespace-nowrap">
+                      <span class="font-mono text-[11px] sm:text-xs text-zinc-400 bg-white/[0.05] px-2 py-0.5 rounded border border-white/[0.08]">
                         {item.type}
                       </span>
                     </td>
-                    <td class="py-4 px-6 font-mono text-xs text-zinc-400">
+                    <td class="py-3.5 sm:py-4 px-4 sm:px-6 font-mono text-xs text-zinc-400 whitespace-nowrap">
                       {item.default}
                     </td>
-                    <td class="py-4 px-6 text-zinc-400 text-xs sm:text-sm leading-relaxed">
+                    <td class="py-3.5 sm:py-4 px-4 sm:px-6 text-zinc-400 text-xs sm:text-sm leading-relaxed min-w-[200px]">
                       {item.description}
                     </td>
                   </tr>

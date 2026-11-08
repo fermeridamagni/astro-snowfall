@@ -55,40 +55,40 @@ const features = [
 ];
 ---
 
-<section class="py-28 relative reveal-section" id="features">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+<section class="py-20 sm:py-28 relative reveal-section w-full overflow-hidden" id="features">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full min-w-0">
     <!-- Header -->
-    <div class="reveal-header text-center max-w-2xl mx-auto mb-16">
+    <div class="reveal-header text-center max-w-2xl mx-auto mb-12 sm:mb-16">
       <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
         Engineered for Elegance.
       </h2>
-      <p class="text-zinc-400 text-base sm:text-lg">
+      <p class="text-zinc-400 text-sm sm:text-lg">
         Designed from the canvas up with attention to every frame, pixel, and byte.
       </p>
     </div>
 
     <!-- Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 w-full min-w-0">
       {
         features.map((feature) => {
           const Icon = feature.icon;
           return (
-            <div class="reveal-card">
-              <Card class="h-full flex flex-col justify-between p-6">
+            <div class="reveal-card w-full min-w-0">
+              <Card class="h-full flex flex-col justify-between p-5 sm:p-6 w-full min-w-0">
                 <div>
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white">
-                      <Icon class="w-5 h-5 text-zinc-200" />
+                  <div class="flex items-center justify-between mb-4 sm:mb-5">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center text-white shrink-0">
+                      <Icon class="w-4 h-4 sm:w-5 sm:h-5 text-zinc-200" />
                     </div>
-                    <span class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 bg-white/[0.03] px-2 py-0.5 rounded border border-white/[0.06]">
+                    <span class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-zinc-400 bg-white/[0.03] px-2 py-0.5 rounded border border-white/[0.06]">
                       {feature.badge}
                     </span>
                   </div>
 
-                  <h3 class="text-lg font-semibold text-white mb-2 tracking-tight">
+                  <h3 class="text-base sm:text-lg font-semibold text-white mb-2 tracking-tight">
                     {feature.title}
                   </h3>
-                  <p class="text-sm text-zinc-400 leading-relaxed font-normal">
+                  <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal">
                     {feature.description}
                   </p>
                 </div>

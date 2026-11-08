@@ -13,33 +13,33 @@ const { code, lang = "bash", title, class: className } = Astro.props;
 ---
 
 <div
-  class="rounded-xl overflow-hidden border border-white/[0.08] bg-[#070709]/90 shadow-2xl backdrop-blur-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+  class="rounded-xl overflow-hidden border border-white/[0.08] bg-[#070709]/90 shadow-2xl backdrop-blur-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] w-full max-w-full min-w-0"
 >
   {
     title && (
-      <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
-        <div class="flex items-center gap-2">
-          <div class="flex gap-1.5">
+      <div class="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 border-b border-white/[0.06] bg-white/[0.02] gap-2 min-w-0">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="flex gap-1.5 shrink-0">
             <div class="w-2.5 h-2.5 rounded-full bg-white/10 border border-white/20" />
             <div class="w-2.5 h-2.5 rounded-full bg-white/10 border border-white/20" />
             <div class="w-2.5 h-2.5 rounded-full bg-white/10 border border-white/20" />
           </div>
-          <span class="text-xs text-zinc-400 font-mono tracking-tight ml-2">
+          <span class="text-[11px] sm:text-xs text-zinc-400 font-mono tracking-tight ml-2 truncate">
             {title}
           </span>
         </div>
       </div>
     )
   }
-  <div class={cn("relative group", className)}>
+  <div class={cn("relative group w-full max-w-full min-w-0", className)}>
     <CopyButton
-      className="absolute top-2.5 right-2.5 p-1.5 rounded-md bg-white/[0.06] hover:bg-white/[0.12] text-zinc-300 hover:text-white transition-all z-20 backdrop-blur-md border border-white/10"
+      className="absolute top-2.5 right-2.5 p-1.5 rounded-md bg-white/[0.06] hover:bg-white/[0.12] text-zinc-300 hover:text-white transition-all z-20 backdrop-blur-md border border-white/10 shrink-0"
       content={code}
       client:visible
     />
-    <div class="p-4 overflow-x-auto">
+    <div class="p-3 sm:p-4 overflow-x-auto w-full max-w-full min-w-0">
       <pre
-        class="font-mono text-xs sm:text-sm text-zinc-200 leading-relaxed pr-12"><code class={`language-${lang}`}>{code.trim()}</code></pre>
+        class="font-mono text-xs sm:text-sm text-zinc-200 leading-relaxed pr-10 sm:pr-12 whitespace-pre"><code class={`language-${lang}`}>{code.trim()}</code></pre>
     </div>
   </div>
 </div>

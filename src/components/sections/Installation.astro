@@ -15,35 +15,35 @@ const managers = [
 ];
 ---
 
-<section class="py-28 relative reveal-section" id="installation">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+<section class="py-20 sm:py-28 relative reveal-section w-full overflow-hidden" id="installation">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full min-w-0">
     <!-- Section Header -->
-    <div class="reveal-header text-center max-w-2xl mx-auto mb-16">
+    <div class="reveal-header text-center max-w-2xl mx-auto mb-12 sm:mb-16">
       <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
         Installation
       </h2>
-      <p class="text-zinc-400 text-base sm:text-lg">
+      <p class="text-zinc-400 text-sm sm:text-lg">
         Add the snowfall component to your Astro project with a single command.
       </p>
     </div>
 
     <!-- Package Manager Terminal Card -->
-    <div class="reveal-card max-w-3xl mx-auto mb-16">
+    <div class="reveal-card max-w-3xl mx-auto mb-16 w-full min-w-0">
       <div
-        class="rounded-2xl border border-white/10 bg-[#070709] shadow-2xl overflow-hidden shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+        class="rounded-2xl border border-white/10 bg-[#070709] shadow-2xl overflow-hidden shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] w-full min-w-0"
       >
         <!-- Tab Bar -->
         <div
-          class="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5"
+          class="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-3 sm:px-4 py-2 sm:py-2.5 gap-2 min-w-0"
         >
-          <div class="flex items-center gap-1.5">
+          <div class="hidden xs:flex items-center gap-1.5 shrink-0">
             <div class="w-2.5 h-2.5 rounded-full bg-white/15 border border-white/20"></div>
             <div class="w-2.5 h-2.5 rounded-full bg-white/15 border border-white/20"></div>
             <div class="w-2.5 h-2.5 rounded-full bg-white/15 border border-white/20"></div>
           </div>
 
           <div
-            class="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/[0.06]"
+            class="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/[0.06] overflow-x-auto no-scrollbar max-w-full"
             id="pm-tabs"
           >
             {
@@ -52,7 +52,7 @@ const managers = [
                   type="button"
                   data-target={pm.id}
                   class:list={[
-                    "pm-tab px-2.5 py-1 text-xs font-mono rounded-md transition-all interactive-press",
+                    "pm-tab px-2 sm:px-2.5 py-1 text-xs font-mono rounded-md transition-all interactive-press shrink-0",
                     idx === 0
                       ? "bg-white text-black font-semibold shadow-xs"
                       : "text-zinc-400 hover:text-white",
@@ -66,22 +66,22 @@ const managers = [
         </div>
 
         <!-- Command Views -->
-        <div class="p-6 relative">
+        <div class="p-4 sm:p-6 relative min-w-0">
           {
             managers.map((pm, idx) => (
               <div
                 id={`pm-view-${pm.id}`}
                 class:list={[
-                  "pm-view items-center justify-between gap-4 font-mono text-sm",
+                  "pm-view items-center justify-between gap-3 font-mono text-xs sm:text-sm min-w-0",
                   idx === 0 ? "flex" : "hidden",
                 ]}
               >
-                <div class="flex items-center gap-3 overflow-x-auto text-zinc-200">
-                  <span class="text-zinc-500 select-none">$</span>
+                <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar min-w-0 text-zinc-200">
+                  <span class="text-zinc-500 select-none shrink-0">$</span>
                   <span class="pm-cmd-text whitespace-nowrap">{pm.cmd}</span>
                 </div>
                 <CopyButton
-                  className="shrink-0 p-2 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] text-zinc-300 hover:text-white transition-all border border-white/10"
+                  className="shrink-0 p-1.5 sm:p-2 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] text-zinc-300 hover:text-white transition-all border border-white/10"
                   content={pm.cmd}
                   client:idle
                 />
@@ -93,78 +93,78 @@ const managers = [
     </div>
 
     <!-- Architectural Pillars Bento Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full min-w-0">
       <div class="reveal-card">
-        <Card class="h-full flex flex-col justify-between">
+        <Card class="h-full flex flex-col justify-between p-5 sm:p-6">
           <div>
-            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">
               Architecture
             </div>
-            <h3 class="text-lg font-semibold text-white mb-2">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">
               Zero Dependencies
             </h3>
-            <p class="text-sm text-zinc-400 leading-relaxed">
+            <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
               Engineered with pure TypeScript and HTML5 Canvas API. No external animation engine required.
             </p>
           </div>
-          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+          <div class="mt-5 pt-3.5 border-t border-white/[0.06] text-xs font-mono text-zinc-500">
             0 runtime packages
           </div>
         </Card>
       </div>
 
       <div class="reveal-card">
-        <Card class="h-full flex flex-col justify-between">
+        <Card class="h-full flex flex-col justify-between p-5 sm:p-6">
           <div>
-            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">
               Footprint
             </div>
-            <h3 class="text-lg font-semibold text-white mb-2">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">
               ~3kb Gzipped
             </h3>
-            <p class="text-sm text-zinc-400 leading-relaxed">
+            <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
               Ultra-compact script size ensures zero noticeable impact on First Contentful Paint.
             </p>
           </div>
-          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+          <div class="mt-5 pt-3.5 border-t border-white/[0.06] text-xs font-mono text-zinc-500">
             Minimal payload
           </div>
         </Card>
       </div>
 
       <div class="reveal-card">
-        <Card class="h-full flex flex-col justify-between">
+        <Card class="h-full flex flex-col justify-between p-5 sm:p-6">
           <div>
-            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">
               Performance
             </div>
-            <h3 class="text-lg font-semibold text-white mb-2">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">
               60 FPS Hardware RAF
             </h3>
-            <p class="text-sm text-zinc-400 leading-relaxed">
+            <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
               IntersectionObserver pauses canvas rendering when offscreen, conserving GPU and battery.
             </p>
           </div>
-          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+          <div class="mt-5 pt-3.5 border-t border-white/[0.06] text-xs font-mono text-zinc-500">
             Auto-throttling
           </div>
         </Card>
       </div>
 
       <div class="reveal-card">
-        <Card class="h-full flex flex-col justify-between">
+        <Card class="h-full flex flex-col justify-between p-5 sm:p-6">
           <div>
-            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+            <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">
               Integration
             </div>
-            <h3 class="text-lg font-semibold text-white mb-2">
+            <h3 class="text-base sm:text-lg font-semibold text-white mb-2">
               Astro Native
             </h3>
-            <p class="text-sm text-zinc-400 leading-relaxed">
+            <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
               Compatible with Astro Island architecture, SSG, SSR, and ClientRouter View Transitions.
             </p>
           </div>
-          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+          <div class="mt-5 pt-3.5 border-t border-white/[0.06] text-xs font-mono text-zinc-500">
             ViewTransitions safe
           </div>
         </Card>

@@ -3,22 +3,23 @@ import GithubIcon from "@components/icons/github-icon.astro";
 ---
 
 <header
-  class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none px-4"
+  class="fixed top-3 sm:top-4 inset-x-0 z-50 flex flex-col items-center pointer-events-none px-3 sm:px-4"
   id="main-header"
 >
+  <!-- Main Island Pill -->
   <nav
-    class="w-full max-w-4xl glass-chrome rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between pointer-events-auto"
+    class="w-full max-w-4xl glass-chrome rounded-full px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between pointer-events-auto"
     aria-label="Main Navigation"
   >
     <a
       href="#"
-      class="flex items-center gap-2.5 group interactive-press text-white"
+      class="flex items-center gap-2 group interactive-press text-white"
     >
       <div
-        class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center transition-transform group-hover:scale-105 duration-200"
+        class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center transition-transform group-hover:scale-105 duration-200 shrink-0"
       >
         <svg
-          class="w-4 h-4 text-white"
+          class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -36,13 +37,14 @@ import GithubIcon from "@components/icons/github-icon.astro";
           <path d="m4.93 19.07 4.24-4.24"></path>
         </svg>
       </div>
-      <span class="font-medium text-sm tracking-tight text-white/90">
+      <span class="font-medium text-xs sm:text-sm tracking-tight text-white/90">
         astro-snowfall
       </span>
     </a>
 
+    <!-- Desktop & Tablet Navigation Links -->
     <div
-      class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400"
+      class="hidden md:flex items-center gap-4 lg:gap-6 text-xs font-medium text-zinc-400"
     >
       <a
         href="#installation"
@@ -64,17 +66,157 @@ import GithubIcon from "@components/icons/github-icon.astro";
       </a>
     </div>
 
-    <div class="flex items-center gap-2.5">
+    <!-- Actions (GitHub + Mobile Menu Button) -->
+    <div class="flex items-center gap-2">
       <a
         href="https://github.com/fermeridamagni/astro-snowfall"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-white/[0.08] hover:bg-white/[0.14] text-white border border-white/10 transition-all interactive-press"
+        class="flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-medium bg-white/8 hover:bg-white/[0.14] text-white border border-white/10 transition-all interactive-press shrink-0"
         aria-label="GitHub Repository"
       >
-        <GithubIcon class="w-3.5 h-3.5" />
+        <GithubIcon class="sm:size-3 size-4" />
         <span class="hidden sm:inline">GitHub</span>
       </a>
+
+      <!-- Mobile Hamburger / Close Button -->
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        class="md:hidden w-8 h-8 rounded-full bg-white/[0.08] border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-all interactive-press shrink-0"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+      >
+        <svg
+          class="w-4 h-4 menu-icon-open"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+        <svg
+          class="w-4 h-4 menu-icon-close hidden"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" x2="6" y1="6" y2="18"></line>
+          <line x1="6" x2="18" y1="6" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile Collapsible Menu Sheet -->
+  <div
+    id="mobile-menu-dropdown"
+    class="w-full max-w-4xl mt-2 px-1 pointer-events-auto hidden md:hidden transition-all duration-200"
+  >
+    <div
+      class="glass-chrome rounded-2xl p-3 flex flex-col gap-1 border border-white/10 shadow-2xl"
+    >
+      <a
+        href="#installation"
+        class="mobile-nav-link px-3.5 py-2.5 rounded-xl text-xs font-medium text-zinc-300 hover:text-white hover:bg-white/[0.06] transition-all flex items-center justify-between"
+      >
+        <span>Installation</span>
+        <svg class="w-3.5 h-3.5 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a
+        href="#features"
+        class="mobile-nav-link px-3.5 py-2.5 rounded-xl text-xs font-medium text-zinc-300 hover:text-white hover:bg-white/[0.06] transition-all flex items-center justify-between"
+      >
+        <span>Features</span>
+        <svg class="w-3.5 h-3.5 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a
+        href="#usage"
+        class="mobile-nav-link px-3.5 py-2.5 rounded-xl text-xs font-medium text-zinc-300 hover:text-white hover:bg-white/[0.06] transition-all flex items-center justify-between"
+      >
+        <span>Usage</span>
+        <svg class="w-3.5 h-3.5 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a
+        href="#examples"
+        class="mobile-nav-link px-3.5 py-2.5 rounded-xl text-xs font-medium text-zinc-300 hover:text-white hover:bg-white/[0.06] transition-all flex items-center justify-between"
+      >
+        <span>Examples</span>
+        <svg class="w-3.5 h-3.5 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a
+        href="#docs"
+        class="mobile-nav-link px-3.5 py-2.5 rounded-xl text-xs font-medium text-zinc-300 hover:text-white hover:bg-white/[0.06] transition-all flex items-center justify-between"
+      >
+        <span>API Reference</span>
+        <svg class="w-3.5 h-3.5 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  function setupMobileMenu() {
+    const toggleBtn = document.querySelector<HTMLButtonElement>("#mobile-menu-toggle");
+    const dropdown = document.querySelector<HTMLElement>("#mobile-menu-dropdown");
+    const openIcon = toggleBtn?.querySelector(".menu-icon-open");
+    const closeIcon = toggleBtn?.querySelector(".menu-icon-close");
+    const navLinks = dropdown?.querySelectorAll(".mobile-nav-link");
+
+    if (!toggleBtn || !dropdown) return;
+
+    const toggleMenu = (open?: boolean) => {
+      const isCurrentlyOpen = !dropdown.classList.contains("hidden");
+      const shouldOpen = open !== undefined ? open : !isCurrentlyOpen;
+
+      if (shouldOpen) {
+        dropdown.classList.remove("hidden");
+        toggleBtn.setAttribute("aria-expanded", "true");
+        openIcon?.classList.add("hidden");
+        closeIcon?.classList.remove("hidden");
+      } else {
+        dropdown.classList.add("hidden");
+        toggleBtn.setAttribute("aria-expanded", "false");
+        openIcon?.classList.remove("hidden");
+        closeIcon?.classList.add("hidden");
+      }
+    };
+
+    toggleBtn.onclick = (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    };
+
+    // Close when clicking any nav link
+    if (navLinks) {
+      for (const link of navLinks) {
+        link.addEventListener("click", () => toggleMenu(false));
+      }
+    }
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target as Node) && !toggleBtn.contains(e.target as Node)) {
+        toggleMenu(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        toggleMenu(false);
+      }
+    });
+  }
+
+  setupMobileMenu();
+  document.addEventListener("astro:page-load", setupMobileMenu);
+</script>

@@ -35,6 +35,8 @@ html {
 }
 
 body {
+  width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
   font-family: var(--font-sans);
@@ -65,7 +67,7 @@ h3 {
 
 /* Frosted glass materials with optical specular top highlight */
 .glass-chrome {
-  background: rgba(10, 10, 12, 0.72);
+  background: rgba(10, 10, 12, 0.76);
   border: 1px solid var(--border-hairline);
   box-shadow:
     inset 0 1px 0 0 var(--border-highlight),
@@ -93,6 +95,7 @@ h3 {
 /* Minimalist monochrome scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -106,6 +109,15 @@ h3 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f46;
+}
+
+/* Utility to hide scrollbars while allowing touch scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Apple direct manipulation tactile active response */

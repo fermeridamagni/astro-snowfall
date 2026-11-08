@@ -3,9 +3,9 @@ import GithubIcon from "@components/icons/github-icon.astro";
 ---
 
 <footer
-  class="py-16 text-zinc-500 border-t border-white/[0.06] bg-black/40 backdrop-blur-xl text-xs"
+  class="py-12 sm:py-16 text-zinc-500 border-t border-white/[0.06] bg-black/40 backdrop-blur-xl text-xs w-full overflow-hidden"
 >
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full min-w-0">
     <div
       class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/[0.04]"
     >
@@ -31,7 +31,7 @@ import GithubIcon from "@components/icons/github-icon.astro";
         <span>astro-snowfall</span>
       </div>
 
-      <div class="flex items-center gap-6 text-zinc-400">
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-zinc-400 text-xs">
         <a href="#installation" class="hover:text-white transition-colors">
           Installation
         </a>
@@ -54,7 +54,7 @@ import GithubIcon from "@components/icons/github-icon.astro";
           href="https://github.com/fermeridamagni/astro-snowfall"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-zinc-400 hover:text-white transition-colors p-1"
+          class="text-zinc-400 hover:text-white transition-colors p-1.5 rounded-full hover:bg-white/[0.06]"
           aria-label="GitHub Repository"
         >
           <GithubIcon class="w-4 h-4" />
@@ -63,7 +63,7 @@ import GithubIcon from "@components/icons/github-icon.astro";
     </div>
 
     <div
-      class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-500 text-[11px]"
+      class="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-500 text-[11px] text-center sm:text-left"
     >
       <p>
         © {new Date().getFullYear()} astro-snowfall. Released under the MIT License.
