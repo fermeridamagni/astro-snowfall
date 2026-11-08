@@ -5,6 +5,10 @@
     "ultracite/biome/astro",
     "ultracite/biome/react"
   ],
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["!**/.agents", "!**/.gemini"]
+  },
   "overrides": [
     {
       "includes": ["src/**/*.tsx", "src/**/*.ts"],
