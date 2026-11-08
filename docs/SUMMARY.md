@@ -1,217 +1,72 @@
 # Implementation Summary
 
-### Core Implementation
+An overview of the architectural implementation, physics pipeline, component lifecycle, and design system of `astro-snowfall`.
 
-1. **Utility Functions** ([src/lib/snowfall/utils.ts](src/lib/snowfall/utils.ts))
-   - `random(min, max)` - Random number generation
-   - `lerp(start, end, t)` - Linear interpolation for smooth transitions
-   - `randomElement(array)` - Random array element selection
-   - `degreesToRadians(degrees)` - Angle conversion
-   - Constants: `TWO_PI` for circle calculations
+---
 
-2. **TypeScript Types** ([src/lib/snowfall/types.ts](src/lib/snowfall/types.ts))
-   - `SnowflakeProps` - Complete snowflake configuration interface
-   - `SnowflakeConfig` - User-facing partial configuration
-   - `SnowfallCanvasConfig` - Canvas controller configuration
-   - `SnowflakeParams` - Internal state tracking
+## 1. Core Architecture
 
-3. **Configuration** ([src/lib/snowfall/config.ts](src/lib/snowfall/config.ts))
-   - Default snowflake properties
-   - Default canvas configuration
-   - Configuration merging utility
+### Utility Functions (`src/lib/snowfall/utils.ts`)
+- `random(min, max)`: Uniform distribution float generator.
+- `lerp(start, end, t)`: Linear interpolation for wind and velocity transitions.
+- `randomElement(array)`: Array element selection.
+- `degreesToRadians(degrees)`: Angle conversion for angular math.
+- `TWO_PI`: Mathematical constant (`2 * Math.PI`) for radial calculations.
 
-4. **Snowflake Class** ([src/lib/snowfall/snowflake.ts](src/lib/snowfall/snowflake.ts))
-   - Physics-based position updates
-   - Velocity interpolation (lerp)
-   - Circle rendering (2D and 3D)
-   - Image rendering with rotation
-   - 3D rotation transformation matrices
-   - Factory method for bulk creation
+### TypeScript Definitions (`src/lib/snowfall/types.ts`)
+- `SnowflakeProps`: Full particle specification (color, radius, speed, wind, opacity, rotation).
+- `SnowfallCanvasConfig`: Canvas lifecycle and particle count parameters.
+- `SnowflakeParams`: Internal state representation (position, target velocity, tumbling angles).
 
-5. **SnowfallCanvas Controller** ([src/lib/snowfall/snowfall-canvas.ts](src/lib/snowfall/snowfall-canvas.ts))
-   - Animation loop with `requestAnimationFrame`
-   - Frame-based updates (60fps target)
-   - Play/pause controls
-   - Dynamic configuration updates
-   - Canvas resizing support
-   - Batch rendering optimization
-   - Proper cleanup on destroy
+### Configuration Manager (`src/lib/snowfall/config.ts`)
+- Centralized defaults for particle mechanics and canvas properties.
+- `mergeConfig()`: Immutably merges custom consumer properties over defaults.
 
-6. **Astro Component** ([src/components/Snowfall.astro](src/components/Snowfall.astro))
-   - Prop-based configuration
-   - Client-side script initialization
-   - Unique canvas ID generation
-   - ResizeObserver for responsive behavior
-   - Astro View Transitions support
-   - Proper cleanup on navigation
+### Particle Engine (`src/lib/snowfall/snowflake.ts`)
+- Physics updates: Velocity interpolation with periodic directional updates.
+- 2D Circle Rendering: High-performance circular particles.
+- 3D Tumbling Rotation: Multi-axis transformations (`rotationX`, `rotationY`, `rotationZ`) simulating crystals fluttering through 3D space.
+- Image Mode: Alternative rendering path for custom PNG/SVG sprites.
 
-### 3D Rotation Implementation
+### Canvas Controller (`src/lib/snowfall/snowfall-canvas.ts`)
+- Lifecycle management using `requestAnimationFrame`.
+- IntersectionObserver integration: Automatically pauses rendering when offscreen.
+- ResizeObserver integration: Dynamically rescales canvas drawing buffer without stretching or distorting pixel ratios.
+- Batch rendering path: Groups simple circles into a single `beginPath()` draw call.
 
-The 3D rotation feature has been fully implemented with:
+---
 
-- **Three-axis rotation**: Snowflakes rotate on X, Y, and Z axes
-- **Perspective effects**: Scale transformations based on rotation angles
-- **Smooth motion**: Rotation speeds vary independently per axis
-- **Visual depth**: Creates realistic tumbling/falling effect
-- **Performance considerations**: Individual rendering for 3D (no batch mode)
+## 2. Astro Component Integration
 
-**How it works:**
-```typescript
-// Each snowflake maintains 3D rotation state
-rotationX: random(0, 360),
-rotationY: random(0, 360),
-rotationZ: random(0, 360),
+### `src/components/Snowfall.astro`
+- Component interface with TypeScript props validation.
+- Emits lightweight `<canvas>` element with JSON-encoded dataset config.
+- Client script handles:
+  - Multi-instance tracking and garbage collection.
+  - IntersectionObserver creation and cleanup.
+  - View Transitions lifecycle (`astro:page-load` and `astro:before-preparation`).
 
-// Updates per frame with independent speeds
-this.params.rotationX += rotationSpeed * framesPassed * 0.5;
-this.params.rotationY += rotationSpeed * framesPassed * 0.3;
-this.params.rotationZ += rotationSpeed * framesPassed;
+---
 
-// Canvas transformations for perspective
-const rotX = degreesToRadians(this.params.rotationX);
-const rotY = degreesToRadians(this.params.rotationY);
-const scaleX = Math.cos(rotY);
-const scaleY = Math.cos(rotX);
-ctx.scale(scaleX, scaleY);
-```
+## 3. Design System & Showcase
 
-### Responsive Behavior Implementation
+### Monochromatic Aesthetic
+- Styled strictly in monochrome (pure black `#000000`, crisp whites, neutral zinc scales, hairline borders).
+- Apple-inspired translucent materials with specular top highlights (`backdrop-filter: blur(20px) saturate(190%)`).
+- Responsive optical typography with negative tracking on display headings (`-0.03em`).
 
-The responsive system automatically adapts to container changes:
+### Motion & Scroll Engine (`src/scripts/animations.ts`)
+- Built with GSAP core and ScrollTrigger.
+- Staggered hero entrance timeline.
+- Batch viewport triggers revealing sections as visitors scroll.
+- Responsive mobile header with auto-hide behavior on downward scroll.
+- Full `(prefers-reduced-motion: reduce)` accessibility integration using `gsap.matchMedia()`.
 
-- **ResizeObserver API**: Monitors canvas container size changes
-- **Automatic resizing**: Canvas dimensions update on window resize
-- **Snowflake preservation**: Existing snowflakes continue animating
-- **Mobile optimized**: Works on all screen sizes and orientations
-- **Zero layout shift**: Canvas fills container perfectly
+---
 
-**How it works:**
-```typescript
-const resizeCanvas = () => {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-  
-  if (snowfall) {
-    snowfall.resize(canvas.width, canvas.height);
-  }
-};
+## 4. Verification & Standards
 
-const resizeObserver = new ResizeObserver(() => {
-  resizeCanvas();
-});
-resizeObserver.observe(canvas);
-```
-
-## 📦 Project Structure
-
-```txt
-astro-snowfall/
-├── README.md                          # Comprehensive documentation
-├── src/
-│   ├── components/
-│   │   └── Snowfall.astro             # Main Astro component
-│   ├── lib/
-│   │   └── snowfall/
-│   │       ├── snowflake.ts           # Individual snowflake class
-│   │       ├── snowfall-canvas.ts      # Animation controller
-│   │       ├── types.ts               # TypeScript definitions
-│   │       ├── utils.ts               # Helper functions
-│   │       ├── config.ts              # Default configuration
-│   │       └── index.ts               # Barrel export file
-│   └── pages/
-│       └── index.astro                # Demo page
-├── astro.config.ts
-├── tsconfig.json
-├── package.json
-└── biome.jsonc
-```
-
-## 🎨 Usage Examples
-
-### Basic Full-Screen Background
-```astro
-<Snowfall 
-  class="snowfall-background"
-  color="#fff"
-  snowflakeCount={200}
-/>
-```
-
-### With 3D Rotation
-```astro
-<Snowfall 
-  color="#dee4fd"
-  snowflakeCount={150}
-  enable3DRotation={true}
-  rotationSpeed={[-2, 2]}
-/>
-```
-
-### Custom Physics
-```astro
-<Snowfall 
-  speed={[0.5, 2]}
-  wind={[-1, 1]}
-  radius={[1, 4]}
-  changeFrequency={300}
-/>
-```
-
-## ⚡ Performance Optimizations
-
-1. **Batch Rendering**: When using simple circles without 3D rotation, all snowflakes are drawn in a single path
-2. **Frame-based Animation**: Calculates frames passed to ensure consistent motion regardless of frame rate
-3. **Target FPS**: Targets 60fps with adaptive frame calculation
-4. **Efficient Updates**: Only updates necessary properties each frame
-5. **Canvas Clipping**: Clears and redraws efficiently
-
-## 🔧 Technical Highlights
-
-### Physics Engine
-- Linear interpolation (lerp) for smooth velocity changes
-- Frame-delta calculations for consistent animation
-- Target-based movement (snowflakes lerp towards random targets)
-- Edge wrapping for infinite effect
-
-### Rendering Pipeline
-1. Calculate time delta since last frame
-2. Convert to frame count (assuming 60fps)
-3. Update all snowflake positions
-4. Clear canvas
-5. Draw all snowflakes (batched or individual)
-6. Queue next frame
-
-### Astro Integration
-- Uses `<script>` tags for client-side code
-- Supports Astro View Transitions with cleanup
-- Props passed via data attributes and JSON parsing
-- Unique canvas IDs for multiple instances
-
-## ✨ Code Quality
-
-- **TypeScript**: Full type safety throughout
-- **Ultracite/Biome**: Zero linting errors (except minor markdown warnings)
-- **Modern JavaScript**: ES6+ features, arrow functions, destructuring
-- **Explicit Types**: All functions have clear parameter and return types
-- **Readonly Properties**: Members that don't change are marked readonly
-- **Documentation**: JSDoc comments on all public APIs
-
-## 🚀 Running the Demo
-
-```bash
-# Install dependencies
-bun install
-
-# Start dev server
-bun run dev
-
-# Open http://localhost:4321
-```
-
-The demo page showcases:
-- Full-screen snowfall background
-- 200 snowflakes with 3D rotation enabled
-- Responsive canvas that adapts to window size
-- Dark themed UI with gradient text
-- Feature list card with glassmorphism effect
-
+- **Runtime & Package Manager**: Bun.
+- **Language**: TypeScript (`strict: true`).
+- **Linter & Formatter**: Ultracite (Biome preset).
+- **Bundle Footprint**: ~3kb gzipped, 0 external runtime dependencies.
