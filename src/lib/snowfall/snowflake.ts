@@ -38,7 +38,7 @@ export class Snowflake {
       speed: random(minSpeed, maxSpeed),
       wind: random(minWind, maxWind),
       x: random(0, canvasWidth),
-      y: random(-canvasHeight, 0), // Start above the visible area
+      y: random(-canvasHeight, canvasHeight), // Distribute across canvas on initial load
     };
   }
 

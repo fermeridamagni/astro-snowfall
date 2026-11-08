@@ -14,6 +14,9 @@ export class SnowfallCanvas {
   private lastUpdate: number = Date.now();
   private animationFrame: number | null = null;
   private readonly targetFps = 60;
+  private logicalWidth = 0;
+  private logicalHeight = 0;
+  private dpr = 1;
 
   constructor(canvas: HTMLCanvasElement, config?: SnowfallCanvasConfig) {
     this.canvas = canvas;
@@ -25,12 +28,22 @@ export class SnowfallCanvas {
 
     this.ctx = ctx;
     this.config = config ?? {};
+    this.dpr = typeof window === "undefined" ? 1 : window.devicePixelRatio || 1;
+    this.logicalWidth = canvas.offsetWidth || canvas.width || 300;
+    this.logicalHeight = canvas.offsetHeight || canvas.height || 150;
+
+    this.applyDimensions();
 
     // Initialize snowflakes
     this.createSnowflakes();
 
     // Start animation
     this.play();
+  }
+
+  private applyDimensions(): void {
+    this.canvas.width = Math.round(this.logicalWidth * this.dpr);
+    this.canvas.height = Math.round(this.logicalHeight * this.dpr);
   }
 
   /**
@@ -64,8 +77,8 @@ export class SnowfallCanvas {
     this.snowflakes = Snowflake.createSnowflakes(
       this.config.snowflakeCount ?? 150,
       snowflakeConfig,
-      this.canvas.width,
-      this.canvas.height
+      this.logicalWidth,
+      this.logicalHeight
     );
   }
 
@@ -81,7 +94,7 @@ export class SnowfallCanvas {
 
     // Update each snowflake
     for (const snowflake of this.snowflakes) {
-      snowflake.update(this.canvas.width, this.canvas.height, framesPassed);
+      snowflake.update(this.logicalWidth, this.logicalHeight, framesPassed);
     }
 
     this.lastUpdate = now;
@@ -94,11 +107,17 @@ export class SnowfallCanvas {
     // Clear canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    this.ctx.save();
+    if (this.dpr !== 1) {
+      this.ctx.scale(this.dpr, this.dpr);
+    }
+
     // Draw all snowflakes
-    // Always draw individually for now (we can optimize later)
     for (const snowflake of this.snowflakes) {
       snowflake.draw(this.ctx);
     }
+
+    this.ctx.restore();
   }
 
   /**
@@ -145,8 +164,10 @@ export class SnowfallCanvas {
    * Resize the canvas and update snowflakes
    */
   resize(width: number, height: number): void {
-    this.canvas.width = width;
-    this.canvas.height = height;
+    this.logicalWidth = width;
+    this.logicalHeight = height;
+    this.dpr = typeof window === "undefined" ? 1 : window.devicePixelRatio || 1;
+    this.applyDimensions();
   }
 
   /**

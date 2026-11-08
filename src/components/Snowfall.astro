@@ -43,16 +43,16 @@ const {
 
 // Build config object
 const config: SnowfallCanvasConfig = {
-  ...(color && { color }),
-  ...(radius && { radius }),
-  ...(speed && { speed }),
-  ...(wind && { wind }),
-  ...(changeFrequency && { changeFrequency }),
-  ...(rotationSpeed && { rotationSpeed }),
-  ...(opacity && { opacity }),
+  ...(color !== undefined && { color }),
+  ...(radius !== undefined && { radius }),
+  ...(speed !== undefined && { speed }),
+  ...(wind !== undefined && { wind }),
+  ...(changeFrequency !== undefined && { changeFrequency }),
+  ...(rotationSpeed !== undefined && { rotationSpeed }),
+  ...(opacity !== undefined && { opacity }),
   ...(enable3DRotation !== undefined && { enable3DRotation }),
-  ...(images && { images }),
-  ...(snowflakeCount && { snowflakeCount }),
+  ...(images !== undefined && { images }),
+  ...(snowflakeCount !== undefined && { snowflakeCount }),
 };
 
 // Generate unique ID for this instance
@@ -86,20 +86,16 @@ const canvasId = `snowfall-canvas-${Math.random().toString(36).substring(2, 9)}`
           canvas.dataset.config || "{}",
         ) as SnowfallCanvasConfig;
 
-        console.log("Initializing snowfall for:", canvas.id);
-
         // Set initial size
         const resizeCanvas = () => {
           const width = canvas.offsetWidth || window.innerWidth;
           const height = canvas.offsetHeight || window.innerHeight;
-          canvas.width = width;
-          canvas.height = height;
           return { height, width };
         };
 
-        resizeCanvas();
-
+        const { width, height } = resizeCanvas();
         const snowfall = new SnowfallCanvas(canvas, config);
+        snowfall.resize(width, height);
         instances.set(canvas.id, snowfall);
 
         // Resize observer
@@ -109,9 +105,23 @@ const canvasId = `snowfall-canvas-${Math.random().toString(36).substring(2, 9)}`
         });
         resizeObserver.observe(canvas);
 
-        // Store observer for cleanup (attach to canvas element for simplicity in this context)
+        // Intersection observer: pause animation when canvas is not visible
+        const intersectionObserver = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              snowfall.play();
+            } else {
+              snowfall.pause();
+            }
+          }
+        });
+        intersectionObserver.observe(canvas);
+
+        // Store observers for cleanup
         // @ts-ignore
         canvas._resizeObserver = resizeObserver;
+        // @ts-ignore
+        canvas._intersectionObserver = intersectionObserver;
       } catch (err) {
         console.error("Failed to initialize snowfall:", err);
       }
@@ -126,6 +136,8 @@ const canvasId = `snowfall-canvas-${Math.random().toString(36).substring(2, 9)}`
       if (canvas) {
         // @ts-ignore
         canvas._resizeObserver?.disconnect();
+        // @ts-ignore
+        canvas._intersectionObserver?.disconnect();
       }
     });
     instances.clear();
