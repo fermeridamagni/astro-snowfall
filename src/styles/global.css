@@ -26,9 +26,9 @@
 }
 
 html {
-  background-color: var(--color-bg);
-  color: #fff;
   scroll-behavior: smooth;
+  color: #fff;
+  background-color: var(--color-bg);
 }
 
 body {
