@@ -1,14 +1,84 @@
+---
+import GithubIcon from "@components/icons/github-icon.astro";
+---
+
 <footer
-  class="py-12 text-center text-gray-500 border-t border-white/5 bg-black/20 backdrop-blur-xl"
+  class="py-16 text-zinc-500 border-t border-white/[0.06] bg-black/40 backdrop-blur-xl text-xs"
 >
-  <p>
-    © {new Date().getFullYear()} Astro Snowfall. - Project under MIT License by
-    <a
-      class="underline underline-offset-4 hover:text-white transition-colors decoration-dotted decoration-white/20"
-      href="https://github.com/fermeridamagni"
-      rel="noopener noreferrer"
-      target="_blank"
-      >@fermeridamagni</a
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div
+      class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/[0.04]"
     >
-  </p>
+      <div class="flex items-center gap-2.5 text-zinc-300 font-medium">
+        <svg
+          class="w-4 h-4 text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 2v20"></path>
+          <path d="m17 7-10 10"></path>
+          <path d="M22 12H2"></path>
+          <path d="m17 17-10-10"></path>
+          <path d="m4.93 4.93 4.24 4.24"></path>
+          <path d="m14.83 14.83 4.24 4.24"></path>
+          <path d="m14.83 9.17 4.24-4.24"></path>
+          <path d="m4.93 19.07 4.24-4.24"></path>
+        </svg>
+        <span>astro-snowfall</span>
+      </div>
+
+      <div class="flex items-center gap-6 text-zinc-400">
+        <a href="#installation" class="hover:text-white transition-colors">
+          Installation
+        </a>
+        <a href="#features" class="hover:text-white transition-colors">
+          Features
+        </a>
+        <a href="#usage" class="hover:text-white transition-colors">
+          Usage
+        </a>
+        <a href="#examples" class="hover:text-white transition-colors">
+          Examples
+        </a>
+        <a href="#docs" class="hover:text-white transition-colors">
+          API
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a
+          href="https://github.com/fermeridamagni/astro-snowfall"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-zinc-400 hover:text-white transition-colors p-1"
+          aria-label="GitHub Repository"
+        >
+          <GithubIcon class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-500 text-[11px]"
+    >
+      <p>
+        © {new Date().getFullYear()} astro-snowfall. Released under the MIT License.
+      </p>
+      <p>
+        Designed & crafted by{" "}
+        <a
+          class="text-zinc-400 hover:text-white transition-colors underline underline-offset-4 decoration-white/20 hover:decoration-white"
+          href="https://github.com/fermeridamagni"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          @fermeridamagni
+        </a>
+      </p>
+    </div>
+  </div>
 </footer>

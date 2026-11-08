@@ -7,18 +7,16 @@ import Hero from "@components/sections/Hero.astro";
 import Installation from "@components/sections/Installation.astro";
 import Usage from "@components/sections/Usage.astro";
 import Layout from "@layouts/Layout.astro";
-
-// Footer could be separate, but defining inline for simplicity or adding a simple footer section here
 ---
 
-<Layout title="Astro Snowfall - Premium Snow Animations for Astro">
-  <main class="relative z-10 w-full overflow-hidden">
+<Layout title="astro-snowfall — Minimalist Canvas Snowfall for Astro">
+  <main class="relative z-10 w-full overflow-x-hidden">
     <Hero />
     <Installation />
     <Features />
     <Usage />
     <Examples />
     <Docs />
-    <Footer />
   </main>
+  <Footer />
 </Layout>

@@ -1,78 +1,112 @@
 ---
+import Snowfall from "@components/Snowfall.astro";
 import Badge from "@ui/Badge.astro";
 import CodeBlock from "@ui/CodeBlock.astro";
+
+const containerSnippet = `---
+import Snowfall from "astro-snowfall";
 ---
 
-<section class="py-24 relative" id="usage" >
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Usage</h2>
+<div class="relative w-full h-80 rounded-2xl overflow-hidden border border-white/10 bg-black">
+  <Snowfall snowflakeCount={60} speed={[0.8, 1.8]} />
+  
+  <div class="relative z-10 flex h-full items-center justify-center">
+    <h2 class="text-2xl font-bold text-white">Container Bound</h2>
+  </div>
+</div>`;
 
-    <div class="space-y-24">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <Badge class="mb-4" variant="success" >Quick Start</Badge>
-          <h3 class="text-2xl font-bold mb-4 text-white">
-            Basic Implementation
+const fullscreenSnippet = `---
+import Snowfall from "astro-snowfall";
+---
+
+<!-- Fixed background across the entire viewport -->
+<div class="fixed inset-0 z-0 pointer-events-none">
+  <Snowfall 
+    color="#ffffff"
+    snowflakeCount={120} 
+    speed={[0.5, 2.0]}
+    wind={[-0.3, 0.6]}
+  />
+</div>`;
+---
+
+<section class="py-28 relative reveal-section" id="usage">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- Header -->
+    <div class="reveal-header text-center max-w-2xl mx-auto mb-20">
+      <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+        Usage
+      </h2>
+      <p class="text-zinc-400 text-base sm:text-lg">
+        Drop into any Astro page or layout. Works out of the box with zero configuration.
+      </p>
+    </div>
+
+    <div class="space-y-16">
+      <!-- Use Case 1: Container Bound -->
+      <div class="reveal-card grid lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-5 space-y-4">
+          <Badge variant="default">Pattern 01</Badge>
+          <h3 class="text-2xl font-bold text-white tracking-tight">
+            Container Bound Snowfall
           </h3>
-          <p class="text-gray-400 mb-6 leading-relaxed">
-            Import the component and drop it on your page. By default, it will
-            cover the container it is placed in.
+          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            By default, the canvas automatically attaches to and resizes with its parent container. Perfect for hero banners, cards, or festive promotional callouts.
           </p>
-          <ul class="space-y-2 text-gray-400 mb-8">
+          <ul class="space-y-2 text-xs sm:text-sm text-zinc-300 font-mono">
             <li class="flex items-center gap-2">
-              <div class="w-1.5 h-1.5 rounded-full bg-purple-500"></div> Default configuration
-              looks great out of the box
+              <span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>
+              Auto-sizes via ResizeObserver
             </li>
             <li class="flex items-center gap-2">
-              <div class="w-1.5 h-1.5 rounded-full bg-purple-500"></div> Auto-resizes
-              with container
+              <span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>
+              Parent needs relative positioning
             </li>
           </ul>
         </div>
-        <div class="w-full">
-          <CodeBlock
-            code={`---
-import Snowfall from 'astro-snowfall';
 
-/**
- * or if you are using the library directly:
- * import Snowfall from '../components/Snowfall.astro';
- */
----
-
-<div class="relative min-h-[500px]">
-  <Snowfall /> 
-  <div class="relative z-10">
-    <h1>Winter is coming</h1>
-  </div>
-</div>`}
-            lang="astro"
-            title="src/pages/index.astro"
-          />
+        <div class="lg:col-span-7 space-y-4">
+          <!-- Live Container Sandbox Preview -->
+          <div class="relative h-44 rounded-xl border border-white/10 overflow-hidden bg-black shadow-lg">
+            <Snowfall snowflakeCount={40} speed={[0.8, 1.8]} radius={[0.8, 2.2]} color="#ffffff" />
+            <div class="relative z-10 flex h-full items-center justify-center pointer-events-none">
+              <div class="glass-chrome px-4 py-2 rounded-full text-xs font-mono text-zinc-300">
+                Interactive Preview
+              </div>
+            </div>
+          </div>
+          
+          <CodeBlock code={containerSnippet} lang="astro" title="src/components/FestiveBanner.astro" />
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="lg:order-2">
-          <Badge class="mb-4" variant="warning" >Popular</Badge>
-          <h3 class="text-2xl font-bold mb-4 text-white">
-            Full Screen Background
+      <!-- Divider -->
+      <div class="border-t border-white/[0.06]"></div>
+
+      <!-- Use Case 2: Fullscreen Background -->
+      <div class="reveal-card grid lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-5 lg:order-2 space-y-4">
+          <Badge variant="default">Pattern 02</Badge>
+          <h3 class="text-2xl font-bold text-white tracking-tight">
+            Global Viewport Background
           </h3>
-          <p class="text-gray-400 mb-6 leading-relaxed">
-            To create a fixed background that stays in place while you scroll,
-            use standard CSS positioning.
+          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            Fix the canvas across your layout so snow gently falls as visitors scroll through pages. Non-blocking with pointer-events disabled by design.
           </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-zinc-300 font-mono">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>
+              Non-interfering clicks (pointer-events-none)
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>
+              Seamless multi-page transitions
+            </li>
+          </ul>
         </div>
-        <div class="w-full lg:order-1">
-          <CodeBlock
-            code={`<Snowfall 
-  class="fixed inset-0 z-0 pointer-events-none"
-  color="#fff"
-  snowflakeCount={200}
-/>`}
-            lang="astro"
-            title="FullScreen.astro"
-          />
+
+        <div class="lg:col-span-7 lg:order-1">
+          <CodeBlock code={fullscreenSnippet} lang="astro" title="src/layouts/Layout.astro" />
         </div>
       </div>
     </div>

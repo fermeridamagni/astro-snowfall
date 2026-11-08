@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Snowfall from "@components/Snowfall.astro";
+import Header from "@components/sections/Header.astro";
 import "@styles/global.css";
 
 interface Props {
@@ -21,11 +22,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html class="dark antialiased scroll-smooth" lang="en" >
+<html class="dark antialiased scroll-smooth" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta content={description} name="description" />
-    <meta content="width=device-width" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <link href={canonicalURL} rel="canonical" />
 
     <!-- General Meta Tags -->
@@ -34,7 +35,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta content="fermeridamagni" name="publisher" />
     <meta content="fermeridamagni" name="creator" />
     <meta
-      content="astro, snowfall, animation, canvas, typescript, component, web design"
+      content="astro, snowfall, animation, canvas, typescript, component, web design, minimalist, monochrome"
       name="keywords"
     />
     <meta content={Astro.generator} name="generator" />
@@ -45,7 +46,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta content={title} property="og:title" />
     <meta content={description} property="og:description" />
     <meta
-      content={new URL(`${import.meta.env.BASE_URL.replace(/\/$/, "")}${image.startsWith("/") ? image : `/${image}`}`, Astro.site)}
+      content={new URL(
+        `${import.meta.env.BASE_URL.replace(/\/$/, "")}${image.startsWith("/") ? image : `/${image}`}`,
+        Astro.site,
+      )}
       property="og:image"
     />
 
@@ -55,7 +59,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta content={title} property="twitter:title" />
     <meta content={description} property="twitter:description" />
     <meta
-      content={new URL(`${import.meta.env.BASE_URL.replace(/\/$/, "")}${image.startsWith("/") ? image : `/${image}`}`, Astro.site)}
+      content={new URL(
+        `${import.meta.env.BASE_URL.replace(/\/$/, "")}${image.startsWith("/") ? image : `/${image}`}`,
+        Astro.site,
+      )}
       property="twitter:image"
     />
     <meta content="@fermeridamagni" property="twitter:creator" />
@@ -67,43 +74,42 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
     <title>{title}</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter with optical tracking -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
     <ClientRouter />
   </head>
-  <body class="bg-[#030014] text-white selection:bg-purple-500/30">
-    <div
-      class="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-    >
-    </div>
+  <body class="bg-black text-white selection:bg-white/20 selection:text-white">
+    <!-- Floating Header -->
+    <Header />
 
-    <!-- Global Snowfall Background -->
+    <!-- Global Subtle Snowfall Background -->
     <div class="fixed inset-0 z-0 pointer-events-none opacity-40">
       <Snowfall
-        radius={[0.5, 2.5]}
-        snowflakeCount={100}
-        speed={[0.5, 1.5]}
-        wind={[-0.2, 0.5]}
+        color="#ffffff"
+        opacity={[0.2, 0.6]}
+        radius={[0.5, 2.0]}
+        snowflakeCount={60}
+        speed={[0.4, 1.4]}
+        wind={[-0.2, 0.4]}
       />
     </div>
 
+    <!-- Main Content Slot -->
     <slot />
+
+    <!-- GSAP Animation Engine Integration -->
+    <script>
+      import { initAnimations, cleanupAnimations } from "../scripts/animations";
+
+      initAnimations();
+      document.addEventListener("astro:page-load", initAnimations);
+      document.addEventListener("astro:before-preparation", cleanupAnimations);
+    </script>
   </body>
 </html>
-
-<style is:global>
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Outfit", sans-serif;
-  }
-</style>

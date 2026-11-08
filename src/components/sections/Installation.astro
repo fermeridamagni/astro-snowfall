@@ -1,174 +1,212 @@
 ---
 import Card from "@ui/Card.astro";
-import CodeBlock from "@ui/CodeBlock.astro";
+import { CopyButton } from "@components/animate-ui/components/buttons/copy";
+
+const managers = [
+  { id: "bun", label: "bun", cmd: "bun add astro-snowfall" },
+  { id: "pnpm", label: "pnpm", cmd: "pnpm add astro-snowfall" },
+  { id: "npm", label: "npm", cmd: "npm install astro-snowfall" },
+  { id: "yarn", label: "yarn", cmd: "yarn add astro-snowfall" },
+  {
+    id: "shadcn",
+    label: "shadcn",
+    cmd: "npx shadcn@latest add https://fermeridamagni.github.io/astro-snowfall/r/snowfall.json",
+  },
+];
 ---
 
-<section class="py-24 relative bg-white/[0.02]" id="installation" >
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <div class="flex flex-col lg:flex-row gap-12 items-center mb-16">
-      <div class="lg:w-1/2 w-full">
-        <h2 class="text-3xl md:text-5xl font-bold mb-6">Installation</h2>
+<section class="py-28 relative reveal-section" id="installation">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- Section Header -->
+    <div class="reveal-header text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+        Installation
+      </h2>
+      <p class="text-zinc-400 text-base sm:text-lg">
+        Add the snowfall component to your Astro project with a single command.
+      </p>
+    </div>
 
-        <p class="text-gray-300 text-lg mb-8 leading-relaxed">
-          Add the component to your project using the shadcn CLI or manually
-          copy the source.
-        </p>
+    <!-- Package Manager Terminal Card -->
+    <div class="reveal-card max-w-3xl mx-auto mb-16">
+      <div
+        class="rounded-2xl border border-white/10 bg-[#070709] shadow-2xl overflow-hidden shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+      >
+        <!-- Tab Bar -->
+        <div
+          class="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5"
+        >
+          <div class="flex items-center gap-1.5">
+            <div class="w-2.5 h-2.5 rounded-full bg-white/15 border border-white/20"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-white/15 border border-white/20"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-white/15 border border-white/20"></div>
+          </div>
+
+          <div
+            class="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/[0.06]"
+            id="pm-tabs"
+          >
+            {
+              managers.map((pm, idx) => (
+                <button
+                  type="button"
+                  data-target={pm.id}
+                  class:list={[
+                    "pm-tab px-2.5 py-1 text-xs font-mono rounded-md transition-all interactive-press",
+                    idx === 0
+                      ? "bg-white text-black font-semibold shadow-xs"
+                      : "text-zinc-400 hover:text-white",
+                  ]}
+                >
+                  {pm.label}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Command Views -->
+        <div class="p-6 relative">
+          {
+            managers.map((pm, idx) => (
+              <div
+                id={`pm-view-${pm.id}`}
+                class:list={[
+                  "pm-view items-center justify-between gap-4 font-mono text-sm",
+                  idx === 0 ? "flex" : "hidden",
+                ]}
+              >
+                <div class="flex items-center gap-3 overflow-x-auto text-zinc-200">
+                  <span class="text-zinc-500 select-none">$</span>
+                  <span class="pm-cmd-text whitespace-nowrap">{pm.cmd}</span>
+                </div>
+                <CopyButton
+                  className="shrink-0 p-2 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] text-zinc-300 hover:text-white transition-all border border-white/10"
+                  content={pm.cmd}
+                  client:idle
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Architectural Pillars Bento Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="reveal-card">
+        <Card class="h-full flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+              Architecture
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">
+              Zero Dependencies
+            </h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Engineered with pure TypeScript and HTML5 Canvas API. No external animation engine required.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+            0 runtime packages
+          </div>
+        </Card>
       </div>
 
-      <div class="lg:w-1/2 w-full">
-        <Card
-          class="h-full bg-gradient-to-br from-purple-900/10 to-blue-900/10 !border-purple-500/20"
-        >
-          <div class="p-4">
-            <div class="flex items-center gap-4 mb-6">
-              <div class="p-3 rounded-xl bg-purple-500/20 text-purple-300">
-                <svg
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  ><path d="m2 7 10-5 10 5-10 5-10-5Z"></path><path
-                    d="m2 17 10 5 10-5"></path><path d="m2 12 10 5 10-5"
-                  ></path></svg
-                >
-              </div>
-              <div>
-                <h4 class="text-lg font-bold text-white">Zero Dependencies</h4>
-                <p class="text-sm text-gray-400">
-                  Pure TypeScript & HTML Canvas
-                </p>
-              </div>
+      <div class="reveal-card">
+        <Card class="h-full flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+              Footprint
             </div>
-            <p class="text-gray-300 mb-6">
-              Because it uses native browser APIs, you don't need to bloat your
-              node_modules with heavy animation libraries. It just works.
+            <h3 class="text-lg font-semibold text-white mb-2">
+              ~3kb Gzipped
+            </h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Ultra-compact script size ensures zero noticeable impact on First Contentful Paint.
             </p>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-black/30 rounded-lg p-3 border border-white/5">
-                <div class="text-2xl font-bold text-white mb-1">~3kb</div>
-                <div class="text-xs text-gray-500">Gzipped</div>
-              </div>
-              <div class="bg-black/30 rounded-lg p-3 border border-white/5">
-                <div class="text-2xl font-bold text-white mb-1">60fps</div>
-                <div class="text-xs text-gray-500">Target Fluidity</div>
-              </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+            Minimal payload
+          </div>
+        </Card>
+      </div>
+
+      <div class="reveal-card">
+        <Card class="h-full flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+              Performance
             </div>
+            <h3 class="text-lg font-semibold text-white mb-2">
+              60 FPS Hardware RAF
+            </h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              IntersectionObserver pauses canvas rendering when offscreen, conserving GPU and battery.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+            Auto-throttling
+          </div>
+        </Card>
+      </div>
+
+      <div class="reveal-card">
+        <Card class="h-full flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+              Integration
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">
+              Astro Native
+            </h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Compatible with Astro Island architecture, SSG, SSR, and ClientRouter View Transitions.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+            ViewTransitions safe
           </div>
         </Card>
       </div>
     </div>
-
-    <div class="max-w-4xl mx-auto">
-      <div class="space-y-8">
-        <div>
-          <div class="flex items-start gap-4 mb-4">
-            <div
-              class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 font-bold text-sm"
-            >
-              1
-            </div>
-            <div class="w-full">
-              <h3 class="text-white font-semibold flex items-center gap-2 mb-1">
-                Using NPM <span
-                  class="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                  >Recommended</span
-                >
-              </h3>
-              <p class="text-sm text-gray-400 mb-3">
-                Install as a standard dependency.
-              </p>
-              <CodeBlock
-                class="max-w-full"
-                code="npm install astro-snowfall"
-                title="Terminal"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="relative">
-          <div aria-hidden="true" class="absolute inset-0 flex items-center" >
-            <div class="w-full border-t border-white/10"></div>
-          </div>
-          <div class="relative flex justify-center">
-            <span class="bg-[#0b0c15] px-2 text-sm text-gray-500">OR</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="flex items-start gap-4 mb-4">
-            <div
-              class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 font-bold text-sm"
-            >
-              2
-            </div>
-            <div class="w-full">
-              <h3 class="text-white font-semibold flex items-center gap-2 mb-1">
-                Using Shadcn CLI
-              </h3>
-              <p class="text-sm text-gray-400 mb-3">
-                Install automatically with all dependencies.
-              </p>
-              <CodeBlock
-                class="max-w-full"
-                code="npx shadcn@latest add https://fermeridamagni.github.io/astro-snowfall/r/snowfall.json"
-                title="Terminal"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="relative">
-          <div aria-hidden="true" class="absolute inset-0 flex items-center" >
-            <div class="w-full border-t border-white/10"></div>
-          </div>
-          <div class="relative flex justify-center">
-            <span class="bg-[#0b0c15] px-2 text-sm text-gray-500">OR</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="flex items-start gap-4 mb-4">
-            <div
-              class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-gray-400 border border-white/10 font-bold text-sm"
-            >
-              3
-            </div>
-            <div class="w-full">
-              <h3 class="text-white font-semibold mb-3">Manual Installation</h3>
-              <div class="space-y-4">
-                <div>
-                  <p
-                    class="text-xs text-gray-400 mb-1.5 uppercase tracking-wider"
-                  >
-                    Step A: Lib Files
-                  </p>
-                  <CodeBlock
-                    code="cp -r src/lib/snowfall your-project/src/lib/"
-                    title="Terminal"
-                  />
-                </div>
-                <div>
-                  <p
-                    class="text-xs text-gray-400 mb-1.5 uppercase tracking-wider"
-                  >
-                    Step B: Component
-                  </p>
-                  <CodeBlock
-                    code="cp src/components/Snowfall.astro your-project/src/components/"
-                    title="Terminal"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
+
+<script>
+  function setupPmTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>(".pm-tab");
+    const views = document.querySelectorAll<HTMLElement>(".pm-view");
+
+    for (const tab of tabs) {
+      tab.addEventListener("click", () => {
+        const targetId = tab.dataset.target;
+        if (!targetId) return;
+
+        // Reset all tabs
+        for (const t of tabs) {
+          t.classList.remove("bg-white", "text-black", "font-semibold", "shadow-xs");
+          t.classList.add("text-zinc-400");
+        }
+
+        // Activate clicked tab
+        tab.classList.add("bg-white", "text-black", "font-semibold", "shadow-xs");
+        tab.classList.remove("text-zinc-400");
+
+        // Toggle views
+        for (const view of views) {
+          if (view.id === `pm-view-${targetId}`) {
+            view.classList.remove("hidden");
+            view.classList.add("flex");
+          } else {
+            view.classList.add("hidden");
+            view.classList.remove("flex");
+          }
+        }
+      });
+    }
+  }
+
+  setupPmTabs();
+  document.addEventListener("astro:page-load", setupPmTabs);
+</script>

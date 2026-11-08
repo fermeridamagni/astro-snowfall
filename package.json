@@ -44,6 +44,9 @@
     "registry:build": "bun x shadcn@latest build",
     "typecheck": "astro check"
   },
+  "dependencies": {
+    "gsap": "^3.15.1"
+  },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^7.1.4",

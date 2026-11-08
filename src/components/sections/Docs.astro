@@ -1,70 +1,128 @@
 ---
 import Card from "@ui/Card.astro";
+
+const propsList = [
+  {
+    default: "'#dee4fd'",
+    description: "Color of snowflakes. Any valid CSS color value (hex, rgb, hsl).",
+    name: "color",
+    type: "string",
+  },
+  {
+    default: "150",
+    description: "Total number of snowflake particles simultaneously rendered.",
+    name: "snowflakeCount",
+    type: "number",
+  },
+  {
+    default: "[0.5, 3.0]",
+    description: "Minimum and maximum snowflake radius in pixels.",
+    name: "radius",
+    type: "[number, number]",
+  },
+  {
+    default: "[1.0, 3.0]",
+    description: "Vertical falling speed range in pixels per frame.",
+    name: "speed",
+    type: "[number, number]",
+  },
+  {
+    default: "[-0.5, 2.0]",
+    description: "Horizontal drift velocity range (negative = left, positive = right).",
+    name: "wind",
+    type: "[number, number]",
+  },
+  {
+    default: "[0.4, 0.9]",
+    description: "Randomized particle opacity interval.",
+    name: "opacity",
+    type: "[number, number]",
+  },
+  {
+    default: "false",
+    description: "Enables pseudo-3D perspective tumbling rotation around axes.",
+    name: "enable3DRotation",
+    type: "boolean",
+  },
+  {
+    default: "[-1.0, 1.0]",
+    description: "Tumbling angular velocity in degrees per frame (requires 3D enabled).",
+    name: "rotationSpeed",
+    type: "[number, number]",
+  },
+  {
+    default: "200",
+    description: "Frames between wind fluctuation changes for realistic turbulence.",
+    name: "changeFrequency",
+    type: "number",
+  },
+  {
+    default: "undefined",
+    description: "Optional custom CSS classes applied directly to the canvas element.",
+    name: "class",
+    type: "string",
+  },
+];
 ---
 
-<section class="py-24 relative bg-white/2" id="docs" >
-  <div class="max-w-4xl mx-auto px-4 md:px-6">
-    <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Props API</h2>
+<section class="py-28 relative reveal-section" id="docs">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <!-- Header -->
+    <div class="reveal-header text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+        Props Specification
+      </h2>
+      <p class="text-zinc-400 text-base sm:text-lg">
+        Comprehensive reference of all configurable properties accepted by the component.
+      </p>
+    </div>
 
-    <Card class="overflow-hidden p-0">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="bg-white/5 border-b border-white/10 text-gray-300">
-              <th class="p-4 font-semibold">Prop</th>
-              <th class="p-4 font-semibold">Type</th>
-              <th class="p-4 font-semibold">Default</th>
-              <th class="p-4 font-semibold">Description</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-white/10 text-gray-400">
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 font-mono text-purple-400">color</td>
-              <td class="p-4 font-mono text-xs">string</td>
-              <td class="p-4 font-mono text-xs text-gray-500">'#dee4fd'</td>
-              <td class="p-4">Color of snowflakes. Can be any CSS color.</td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 font-mono text-purple-400">snowflakeCount</td>
-              <td class="p-4 font-mono text-xs">number</td>
-              <td class="p-4 font-mono text-xs text-gray-500">150</td>
-              <td class="p-4">Number of snowflakes to render.</td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 font-mono text-purple-400">radius</td>
-              <td class="p-4 font-mono text-xs">[number, number]</td>
-              <td class="p-4 font-mono text-xs text-gray-500">[0.5, 3.0]</td>
-              <td class="p-4">Min and max radius in pixels.</td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 font-mono text-purple-400">speed</td>
-              <td class="p-4 font-mono text-xs">[number, number]</td>
-              <td class="p-4 font-mono text-xs text-gray-500">[1.0, 3.0]</td>
-              <td class="p-4">Min and max vertical falling speed.</td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 font-mono text-purple-400">wind</td>
-              <td class="p-4 font-mono text-xs">[number, number]</td>
-              <td class="p-4 font-mono text-xs text-gray-500">[-0.5, 2.0]</td>
-              <td class="p-4">Min and max horizontal wind speed.</td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 font-mono text-purple-400">enable3DRotation</td>
-              <td class="p-4 font-mono text-xs">boolean</td>
-              <td class="p-4 font-mono text-xs text-gray-500">false</td>
-              <td class="p-4">Enables 3D tumbling chips effect.</td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 font-mono text-purple-400">rotationSpeed</td>
-              <td class="p-4 font-mono text-xs">[number, number]</td>
-              <td class="p-4 font-mono text-xs text-gray-500">[-1.0, 1.0]</td>
-              <td class="p-4"
-                >Rotation speed in degrees per frame (only with 3D).</td
-              >
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </Card>
+    <!-- Props Table Card -->
+    <div class="reveal-card">
+      <Card class="overflow-hidden p-0 border border-white/10 bg-[#070709]">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-white/[0.08] bg-white/[0.03] text-zinc-300">
+                <th class="py-4 px-6 font-medium text-xs font-mono uppercase tracking-wider">
+                  Prop
+                </th>
+                <th class="py-4 px-6 font-medium text-xs font-mono uppercase tracking-wider">
+                  Type
+                </th>
+                <th class="py-4 px-6 font-medium text-xs font-mono uppercase tracking-wider">
+                  Default
+                </th>
+                <th class="py-4 px-6 font-medium text-xs uppercase tracking-wider">
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/[0.06] text-zinc-300">
+              {
+                propsList.map((item) => (
+                  <tr class="hover:bg-white/[0.02] transition-colors">
+                    <td class="py-4 px-6 font-mono text-white font-medium">
+                      {item.name}
+                    </td>
+                    <td class="py-4 px-6">
+                      <span class="font-mono text-xs text-zinc-400 bg-white/[0.05] px-2 py-0.5 rounded border border-white/[0.08]">
+                        {item.type}
+                      </span>
+                    </td>
+                    <td class="py-4 px-6 font-mono text-xs text-zinc-400">
+                      {item.default}
+                    </td>
+                    <td class="py-4 px-6 text-zinc-400 text-xs sm:text-sm leading-relaxed">
+                      {item.description}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
   </div>
 </section>

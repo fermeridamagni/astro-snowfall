@@ -1,75 +1,141 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-primary: #a855f7;
-  --color-brand-secondary: #ec4899;
-  --color-brand-accent: #0ea5e9;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+    sans-serif;
+  --font-display:
+    "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui,
+    sans-serif;
 
-  --font-sans: "Inter", system-ui, sans-serif;
-
-  --animate-float: float 6s ease-in-out infinite;
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
+  --color-mono-bg: #000000;
+  --color-mono-surface: #0a0a0c;
+  --color-mono-surface-elevated: #121215;
+  --color-mono-border: rgba(255, 255, 255, 0.08);
+  --color-mono-border-highlight: rgba(255, 255, 255, 0.18);
+  --color-mono-muted: #86868b;
+  --color-mono-subtle: #a1a1a6;
 }
 
 :root {
-  --color-bg: #030014;
-  --color-surface: rgba(15, 23, 42, 0.6);
-  --color-border: rgba(148, 163, 184, 0.1);
+  --bg-color: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #86868b;
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(255, 255, 255, 0.16);
 }
 
 html {
   scroll-behavior: smooth;
-  color: #fff;
-  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  background-color: var(--bg-color);
+  text-rendering: optimizeLegibility;
 }
 
 body {
   min-height: 100vh;
   overflow-x: hidden;
   font-family: var(--font-sans);
+  color: #ffffff;
+  background-color: #000000;
 }
 
-/* Custom Scrollbar */
+/* Apple typography tracking & leading hierarchy */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  letter-spacing: -0.03em;
+}
+
+.text-silver-gradient {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+  -webkit-background-clip: text;
+}
+
+.text-muted-gradient {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(180deg, #e4e4e7 0%, #71717a 100%);
+  -webkit-background-clip: text;
+}
+
+/* Frosted glass materials with optical specular top highlight */
+.glass-chrome {
+  background: rgba(10, 10, 12, 0.72);
+  border: 1px solid var(--border-hairline);
+  box-shadow:
+    inset 0 1px 0 0 var(--border-highlight),
+    0 12px 32px -4px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  backdrop-filter: blur(20px) saturate(190%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Minimalist monochrome scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 5px;
+  background: #27272a;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #3f3f46;
 }
 
-.glass {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+/* Apple direct manipulation tactile active response */
+button:active:not(:disabled),
+a.interactive-press:active {
+  transform: scale(0.98);
+  transition: transform 100ms ease-out;
 }
 
-.text-gradient {
-  -webkit-text-fill-color: transparent;
-  background: linear-gradient(
-    to right,
-    var(--color-brand-primary),
-    var(--color-brand-secondary),
-    var(--color-brand-accent)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Reduced transparency accessibility */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-chrome,
+  .glass-card {
+    background: #0e0e11 !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
 }

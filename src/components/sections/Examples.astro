@@ -3,75 +3,115 @@ import Snowfall from "@components/Snowfall.astro";
 import type { SnowfallCanvasConfig } from "@lib/snowfall/types";
 import CodeBlock from "@ui/CodeBlock.astro";
 
-interface ExampleItem {
+interface ExamplePreset {
+  badge: string;
   code: string;
+  description: string;
   props: SnowfallCanvasConfig;
   title: string;
 }
 
-const examples: ExampleItem[] = [
+const presets: ExamplePreset[] = [
   {
+    badge: "Subtle",
     code: `<Snowfall
-  snowflakeCount={100}
-  speed={[3, 8]}
-  wind={[-2, 2]}
-/>`,
-    props: {
-      snowflakeCount: 100,
-      speed: [3, 8],
-      wind: [-2, 2],
-    },
-    title: "Heavy Blizzard",
-  },
-  {
-    code: `<Snowfall
-  snowflakeCount={40}
+  snowflakeCount={45}
   speed={[0.5, 1.5]}
-  wind={[-0.5, 0.5]}
+  wind={[-0.4, 0.4]}
+  radius={[0.6, 2.0]}
+  opacity={[0.3, 0.8]}
 />`,
+    description: "Quiet, delicate snowfall with soft drift and varied transparency.",
     props: {
-      opacity: [0.4, 0.8],
-      snowflakeCount: 40,
+      color: "#ffffff",
+      opacity: [0.3, 0.8],
+      radius: [0.6, 2.0],
+      snowflakeCount: 45,
       speed: [0.5, 1.5],
-      wind: [-0.5, 0.5],
+      wind: [-0.4, 0.4],
     },
-    title: "Gentle Flurries",
+    title: "Gentle Flurry",
   },
   {
+    badge: "Dynamic",
     code: `<Snowfall
-  color="#EC4899"
-  enable3DRotation={true}
-  snowflakeCount={50}
-  rotationSpeed={[-5, 5]}
+  snowflakeCount={110}
+  speed={[3.5, 7.5]}
+  wind={[-2.5, 1.5]}
+  radius={[0.5, 2.5]}
 />`,
+    description: "Dense, rapid snowfall with strong directional crosswind.",
     props: {
-      color: "#EC4899", // Pink
-      enable3DRotation: true,
-      rotationSpeed: [-5, 5],
-      snowflakeCount: 50,
-      speed: [2, 4],
+      color: "#e4e4e7",
+      radius: [0.5, 2.5],
+      snowflakeCount: 110,
+      speed: [3.5, 7.5],
+      wind: [-2.5, 1.5],
     },
-    title: "Confetti Party",
+    title: "Mountain Blizzard",
+  },
+  {
+    badge: "Spatial 3D",
+    code: `<Snowfall
+  enable3DRotation={true}
+  rotationSpeed={[-3, 3]}
+  snowflakeCount={65}
+  speed={[1.2, 2.8]}
+/>`,
+    description: "Multi-axis tumbling crystals simulating spatial orientation.",
+    props: {
+      color: "#ffffff",
+      enable3DRotation: true,
+      rotationSpeed: [-3, 3],
+      snowflakeCount: 65,
+      speed: [1.2, 2.8],
+    },
+    title: "Tumbling Crystals",
   },
 ];
 ---
 
-<section class="py-24 relative" id="examples" >
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Examples</h2>
+<section class="py-28 relative reveal-section" id="examples">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- Header -->
+    <div class="reveal-header text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+        Interactive Presets
+      </h2>
+      <p class="text-zinc-400 text-base sm:text-lg">
+        Explore different atmospheres by adjusting speed, wind, density, and 3D tumbling physics.
+      </p>
+    </div>
 
-    <div class="grid lg:grid-cols-3 gap-8">
+    <!-- 3-Column Showcase Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {
-        examples.map((example) => (
-          <div class="flex flex-col gap-4">
-            <div class="relative h-64 rounded-2xl overflow-hidden border border-white/10 bg-[#0a0e27]">
-              <Snowfall {...example.props} />
+        presets.map((preset) => (
+          <div class="reveal-card flex flex-col gap-4">
+            <!-- Canvas Preview Container -->
+            <div class="relative h-64 rounded-2xl overflow-hidden border border-white/10 bg-[#070709] shadow-lg group">
+              <Snowfall {...preset.props} />
 
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-black/80 to-transparent">
-                <h3 class="text-white font-bold">{example.title}</h3>
+              <!-- Overlay info bar -->
+              <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end justify-between pointer-events-none">
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <h3 class="text-white font-semibold text-base tracking-tight">
+                      {preset.title}
+                    </h3>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-zinc-300 border border-white/10">
+                      {preset.badge}
+                    </span>
+                  </div>
+                  <p class="text-xs text-zinc-400 line-clamp-1">
+                    {preset.description}
+                  </p>
+                </div>
               </div>
             </div>
-            <CodeBlock code={example.code} lang="astro" />
+
+            <!-- Code Snippet -->
+            <CodeBlock code={preset.code} lang="astro" />
           </div>
         ))
       }

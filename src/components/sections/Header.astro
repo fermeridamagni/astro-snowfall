@@ -1,0 +1,75 @@
+---
+import GithubIcon from "@components/icons/github-icon.astro";
+---
+
+<header
+  class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl transition-all duration-300"
+  id="main-header"
+>
+  <nav
+    class="glass-chrome rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between"
+    aria-label="Main Navigation"
+  >
+    <a
+      href="#"
+      class="flex items-center gap-2.5 group interactive-press text-white"
+    >
+      <div
+        class="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center transition-transform group-hover:scale-105 duration-200"
+      >
+        <svg
+          class="w-4 h-4 text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 2v20"></path>
+          <path d="m17 7-10 10"></path>
+          <path d="M22 12H2"></path>
+          <path d="m17 17-10-10"></path>
+          <path d="m4.93 4.93 4.24 4.24"></path>
+          <path d="m14.83 14.83 4.24 4.24"></path>
+          <path d="m14.83 9.17 4.24-4.24"></path>
+          <path d="m4.93 19.07 4.24-4.24"></path>
+        </svg>
+      </div>
+      <span class="font-medium text-sm tracking-tight text-white/90">
+        astro-snowfall
+      </span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400">
+      <a href="#installation" class="hover:text-white transition-colors duration-150">
+        Installation
+      </a>
+      <a href="#features" class="hover:text-white transition-colors duration-150">
+        Features
+      </a>
+      <a href="#usage" class="hover:text-white transition-colors duration-150">
+        Usage
+      </a>
+      <a href="#examples" class="hover:text-white transition-colors duration-150">
+        Examples
+      </a>
+      <a href="#docs" class="hover:text-white transition-colors duration-150">
+        API
+      </a>
+    </div>
+
+    <div class="flex items-center gap-2.5">
+      <a
+        href="https://github.com/fermeridamagni/astro-snowfall"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-white/[0.08] hover:bg-white/[0.14] text-white border border-white/10 transition-all interactive-press"
+        aria-label="GitHub Repository"
+      >
+        <GithubIcon class="w-3.5 h-3.5" />
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+    </div>
+  </nav>
+</header>
