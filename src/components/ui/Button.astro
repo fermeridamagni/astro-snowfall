@@ -38,8 +38,12 @@ const styles = `
 `;
 
 const Tag = href ? "a" : "button";
+const rel =
+  href && rest.target === "_blank"
+    ? rest.rel || "noopener noreferrer"
+    : rest.rel;
 ---
 
-<Tag class={styles} href={href} {...rest}>
+<Tag class={styles} href={href} {...rest} rel={rel}>
   <slot />
 </Tag>
