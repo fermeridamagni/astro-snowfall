@@ -24,7 +24,9 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/components/Snowfall.astro"
+    ".": "./src/components/Snowfall.astro",
+    "./lib": "./src/lib/snowfall/index.ts",
+    "./types": "./src/lib/snowfall/types.ts"
   },
   "files": [
     "src/components/Snowfall.astro",
@@ -34,16 +36,19 @@
     "package.json"
   ],
   "scripts": {
-    "build": "npm run registry:build && astro build",
+    "build": "bun run registry:build && astro build",
     "check": "ultracite check",
     "dev": "portless run astro dev",
     "fix": "ultracite fix",
     "preview": "astro preview",
-    "registry:build": "npx shadcn@latest build"
+    "registry:build": "bun x shadcn@latest build",
+    "typecheck": "astro check"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^7.1.4",
     "@astrojs/sitemap": "^3.7.4",
+    "@biomejs/biome": "^2.6.6",
     "@lucide/astro": "^1.70.0",
     "@magnidev/tailwindcss-utils": "^1.0.2",
     "@tailwindcss/vite": "^4.3.5",
@@ -52,17 +57,21 @@
     "astro": "^7.4.7",
     "lucide-react": "^1.70.0",
     "motion": "^14.10.1",
+    "portless": "^0.16.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "tailwind-variants": "^4.0.1",
-    "tailwindcss": "^4.3.5"
-  },
-  "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@biomejs/biome": "^2.6.6",
-    "portless": "^0.16.0",
+    "tailwindcss": "^4.3.5",
     "typescript": "^7.0.2",
     "ultracite": "^8.1.1"
+  },
+  "peerDependencies": {
+    "astro": "^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "astro": {
+      "optional": false
+    }
   },
   "packageManager": "bun@1.4.4",
   "publishConfig": {

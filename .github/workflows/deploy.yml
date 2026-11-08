@@ -4,7 +4,7 @@ on:
   # Trigger the workflow every time you push to the `master` branch
   # Using a different branch name? Replace `master` with your branch’s name
   push:
-    branches: [master]
+    branches: [ master ]
     paths-ignore:
       - "**/*.md"
       - "**/*.json"
